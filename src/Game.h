@@ -1,5 +1,9 @@
 // Game.h
-// Blah blah blah
+// Class Name:			Game
+// Class Description:	Game class which represents an instance of the game.
+//						This class contains methods which initialize the SFML framework,
+//						create a new window, handle the game loop,
+//						handle input, load graphics, and draw to the screen.
 // Date Created:		May 22, 2019
 // Last Modified:		May 22, 2019
 // Created by:			Tommy Janna
@@ -7,14 +11,29 @@
 #ifndef GAME_H
 #define GAME_H
 
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 576
+#include <SFML/Graphics.hpp>
+
+#define SCREEN_WIDTH 600
+#define SCREEN_HEIGHT 600
+
+using namespace sf;
 
 class Game
 {
 public:
-	Game(int, int);
+	Game();
 	~Game();
+	
+	void Run();
+	
+	void Input();
+	void Update();
+	void Draw();
+	
+	void Cleanup();
+	
+private:
+	RenderWindow window;
 };
 
 #endif
