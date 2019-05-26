@@ -6,9 +6,14 @@
 
 #include "Game.h"
 
+// Declare static members.
+LinkedList GameObject::objects;
+
 Game::Game()
 {
 	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Maze Game");
+	
+	SceneManager::ChangeScene(SceneManager::MENU);
 }
 
 Game::~Game()
@@ -46,18 +51,32 @@ void Game::Input()
 }
 
 void Game::Update()
-{
+{	
+	// Update existing GameObjects
+	for(int i = 0; i < GameObject::objects.GetSize(); i++)
+	{
+		GameObject::objects.GetLinkAt(i)->GetContent()->Update();
+	}
+
+	return;
 }
 
 void Game::Draw()
 {
 	window.clear();
-	
-			//for(int i = 0; i < SIZE; i++) // Draw each node in list.
-		//{
-		//	window.draw(list.GetNodeAt(i)->rectangle);
-		//}
-	
+
+	for(int i = 1; i < 5; i++)
+	{
+		for(int j = 0; j < GameObject::objects.GetSize(); j++)
+		{
+			if(GameObject::objects.GetLinkAt(j)->GetContent()->GetLayer() == i)
+			{	
+				// Draw to the back buffer.
+				window.draw(*GameObject::objects.GetLinkAt(j)->GetContent()->GetDrawable());
+			}
+		}
+	}
+
 	window.display();
 }
 

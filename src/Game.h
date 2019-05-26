@@ -13,6 +13,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
+#include "SceneManager.h"
 
 #define SCREEN_WIDTH 600
 #define SCREEN_HEIGHT 600

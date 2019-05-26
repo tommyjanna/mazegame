@@ -1,9 +1,10 @@
 // main.cpp
 // Project Title:		Maze Game
-// Project Description:	A program that randomly generates a maze,
-//						and gives the user the option to have the maze
-//						solved by the computer, or play an adventure/RPG
-//						like interactive mode.
+// Project Description:	A program that builds a pre-defined maze with keys
+//						and locked doors, and gives the user the 
+//						option to have the maze be solved by the 
+//						computer, or play an adventure/RPG
+//						like interactive mode with monsters.
 // Date Created:		May 22, 2019
 // Last Modified:		May 22, 2019
 // Created by:			Tommy Janna

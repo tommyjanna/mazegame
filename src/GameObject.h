@@ -10,13 +10,30 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+#include <SFML/Graphics/Drawable.hpp>
+#include "LinkedList.h"
+#include "Sprite.h"
+
+using namespace sf;
+
 class GameObject
 {
 public:
-	
-private:
+	GameObject(int _x, int _y, int _width, int _height, Uint8 _layer);
+	virtual ~GameObject();
 
+	virtual void Update() = 0; // (= 0) makes this a pure virtual method, so Update() must be implemented.
+	virtual void Destroy() = 0;
+	virtual Drawable* GetDrawable() = 0;
 	
+	static LinkedList objects;
+	
+	Uint8 GetLayer();
+private:
+	Uint8 layer;
+	
+	int xPos, yPos;
+	int width, height;
 };
 
 #endif
