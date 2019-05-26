@@ -11,6 +11,7 @@
 
 #include "GameObject.h"
 #include "GameObjects/Button.h"
+#include "GameObjects/Text.h"
 
 namespace SceneManager
 {

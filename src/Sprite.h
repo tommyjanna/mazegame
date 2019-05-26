@@ -22,6 +22,10 @@ public:
     void LoadRenderedText(string _text, Uint8 _fontSize);
 
     void SetColor(Color _colour);
+    void SetPosition(int _x, int _y);
+    
+    int GetWidth();
+    int GetHeight();
 
 	Drawable* GetDrawable();
 
@@ -31,6 +35,9 @@ private:
     Texture texture;
     Font font;
     Sprite sprite;
+    
+    int width;
+    int height;
     
     Drawable* drawable;
 };

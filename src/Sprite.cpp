@@ -20,15 +20,15 @@ void MySprite::LoadTexture(string _path)
 
 void MySprite::LoadRenderedText(string _text, Uint8 _fontSize)
 {
-	font.loadFromFile("../assets/fonts/OpenSans-Regular.ttf");
+	font.loadFromFile("../assets/fonts/Early-Gameboy.ttf");
 	
 	text.setFont(font);
-	
 	text.setString(_text);
-	
 	text.setCharacterSize(_fontSize);
+	text.setFillColor(Color::Black);
 	
-	text.setFillColor(Color::White);
+	width = text.getLocalBounds().width;
+	height = text.getLocalBounds().height;
 	
 	drawable = &text;
 	return;
@@ -38,6 +38,24 @@ void MySprite::SetColor(Color _colour)
 {
 	text.setFillColor(_colour);
 	return;
+}
+
+void MySprite::SetPosition(int _x, int _y)
+{
+	sprite.setPosition(_x, _y);
+	text.setPosition(_x, _y);
+	
+	return;
+}
+
+int MySprite::GetWidth()
+{
+	return width;
+}
+
+int MySprite::GetHeight()
+{
+	return height;
 }
 
 Drawable* MySprite::GetDrawable()

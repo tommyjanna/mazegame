@@ -1,4 +1,4 @@
-// GameObject.h
+// Button.h
 // Class name: 			 Button
 // Description of class: It's a button.
 // Date Created:		 May 25, 2019
@@ -8,17 +8,16 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "../GameObject.h"
 #include <functional>
 #include <chrono>
-
-using namespace std;
+#include <SFML/Window/Mouse.hpp>
+#include "../GameObject.h"
+#include "../Game.h"
 
 class Button : public GameObject
 {
 public:
-    Button(int _x, int _y, int _width, int _height, Uint8 _layer, string _path, Uint8 _fontSize, std::function<void()> const& _event);
-    ~Button();
+    Button(int _x, int _y, Uint8 _layer, string _text, Uint8 _fontSize, std::function<void()> const& _event);
 
     void Update() override;
     void Destroy() override;
@@ -26,14 +25,12 @@ public:
 
 private:
 
-    chrono::system_clock::time_point _beginningTime;
-    chrono::duration<double, milli> _elapsedTime;
-    bool _timerRunning;
+    std::chrono::system_clock::time_point _beginningTime;
+    std::chrono::duration<double, milli> _elapsedTime;
+    bool timerRunning;
 
-    bool _down;
+    bool down;
     
-    MySprite sprite;
-
     // Function that will fire when the button is pushed.
     function<void()> event;
 };

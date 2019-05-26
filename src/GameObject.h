@@ -19,21 +19,26 @@ using namespace sf;
 class GameObject
 {
 public:
-	GameObject(int _x, int _y, int _width, int _height, Uint8 _layer);
+	GameObject(int _x, int _y, Uint8 _layer);
 	virtual ~GameObject();
 
 	virtual void Update() = 0; // (= 0) makes this a pure virtual method, so Update() must be implemented.
 	virtual void Destroy() = 0;
 	virtual Drawable* GetDrawable() = 0;
 	
+	void UpdatePosition();
+	
 	static LinkedList objects;
 	
 	Uint8 GetLayer();
+	
+protected:
+	int xPos, yPos;
+	
+	MySprite sprite;
+	
 private:
 	Uint8 layer;
-	
-	int xPos, yPos;
-	int width, height;
 };
 
 #endif

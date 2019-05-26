@@ -12,10 +12,14 @@ void SceneManager::ChangeScene(int scene)
     {
     case SceneManager::MENU:
     {
-        //SDL_SetRenderDrawColor(Game::_renderer, 0xFF, 0xFF, 0x00, 0xFF);
-        //Menu m = Menu();
-        Button* butt = new Button(0, 0, 10, 10, 1, "Hello", 24, []() { SceneManager::ChangeScene(SceneManager::AUTOSOLVER); } );
+		Button* ass = new Button(50, 468, 1, "Play", 34, []() { SceneManager::ChangeScene(SceneManager::GAME); } );
+        GameObject::objects.Add(ass, GameObject::objects.GetLast());
+		
+        Button* butt = new Button(370, 450, 1, "Auto-\nSolver", 34, []() { SceneManager::ChangeScene(SceneManager::AUTOSOLVER); } );
         GameObject::objects.Add(butt, GameObject::objects.GetLast());
+        
+        MyText* text = new MyText(85, 50, 5, "MAZE GAME", 52);
+        GameObject::objects.Add(text, GameObject::objects.GetLast());
         break;
 	}
 	

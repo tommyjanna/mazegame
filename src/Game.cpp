@@ -7,6 +7,8 @@
 #include "Game.h"
 
 // Declare static members.
+Vector2i Game::mousePos;
+bool Game::mouseState[2];
 LinkedList GameObject::objects;
 
 Game::Game()
@@ -39,6 +41,7 @@ void Game::Input()
 {
 	// Holds top event in queue.
 	Event event;
+	mouseEventOccur = false;
 	
 	while(window.pollEvent(event)) // Obtain next input in queue and store it in event.
 	{
@@ -46,8 +49,41 @@ void Game::Input()
 		{
 			window.close();
 		}
-	}
+		
+		else if(event.type == Event::MouseButtonPressed)
+		{
+			mouseEventOccur = true;
+			
+			if(event.mouseButton.button == sf::Mouse::Left)
+			{
+				mouseState[0] = true; // Pressed
+				mouseState[1] = false; // Released
+			}
+		}
+		
+		else if(event.type == Event::MouseButtonReleased)
+		{
+			mouseEventOccur = true;
 
+			if(event.mouseButton.button == sf::Mouse::Left)
+			{
+				mouseState[1] = true; // Released
+				mouseState[0] = false; // Pressed
+			}
+		}
+	}
+	
+	// If no mouse presses this tick, reset.
+	if(!mouseEventOccur)
+	{
+		mouseState[0] = false;
+		mouseState[1] = false;
+	}
+	
+	// Refresh mouse position (relative to window)
+	mousePos = Mouse::getPosition(window);
+
+	return;
 }
 
 void Game::Update()
@@ -63,15 +99,16 @@ void Game::Update()
 
 void Game::Draw()
 {
-	window.clear();
+	window.clear(Color(243, 240, 189));
 
-	for(int i = 1; i < 5; i++)
+	for(int i = 1; i < 6; i++)
 	{
 		for(int j = 0; j < GameObject::objects.GetSize(); j++)
 		{
 			if(GameObject::objects.GetLinkAt(j)->GetContent()->GetLayer() == i)
 			{	
 				// Draw to the back buffer.
+				GameObject::objects.GetLinkAt(j)->GetContent()->UpdatePosition();
 				window.draw(*GameObject::objects.GetLinkAt(j)->GetContent()->GetDrawable());
 			}
 		}
