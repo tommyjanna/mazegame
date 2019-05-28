@@ -10,26 +10,29 @@ void MySprite::LoadTexture(string _path)
 {
 	texture.loadFromFile(_path);
 	texture.setSmooth(true);
-	
+
 	sprite.setTexture(texture);
-	
+
 	drawable = &sprite;
-	
+
 	return;
 }
 
 void MySprite::LoadRenderedText(string _text, Uint8 _fontSize)
 {
+#ifndef _WIN32
 	font.loadFromFile("../assets/fonts/Early-Gameboy.ttf");
-	
+#else
+    font.loadFromFile("assets/fonts/Early-Gameboy.ttf");
+#endif
 	text.setFont(font);
 	text.setString(_text);
 	text.setCharacterSize(_fontSize);
 	text.setFillColor(Color::Black);
-	
+
 	width = text.getLocalBounds().width;
 	height = text.getLocalBounds().height;
-	
+
 	drawable = &text;
 	return;
 }
@@ -44,7 +47,7 @@ void MySprite::SetPosition(int _x, int _y)
 {
 	sprite.setPosition(_x, _y);
 	text.setPosition(_x, _y);
-	
+
 	return;
 }
 

@@ -12,7 +12,7 @@ Button::Button(int _x, int _y, Uint8 _layer, string _text, Uint8 _fontSize, std:
     timerRunning = false;
 
     event = _event;
-    
+
     sprite.LoadRenderedText(_text, _fontSize);
 }
 
@@ -21,7 +21,7 @@ void Button::Update()
     bool timeCheck = true;
 
     // There is a timer between each button press to avoid,
-    // accidental double clicking of seperate buttons on a trackpad.
+    // accidental double clicking of separate buttons on a trackpad.
     if(timerRunning)
     {
         _elapsedTime = chrono::system_clock::now() - _beginningTime;
@@ -37,7 +37,6 @@ void Button::Update()
         if((Game::mousePos.x > xPos - 10 && Game::mousePos.x < xPos + 10 + sprite.GetWidth()) &&
 			(Game::mousePos.y > yPos - 20 && Game::mousePos.y < yPos + 20 + sprite.GetHeight()))
         {
-            
             if(Game::mouseState[0]) // Mouse down.
             {
 				down = true;
@@ -52,14 +51,14 @@ void Button::Update()
                     timerRunning = true;
 
                     down = false;
-                    
+
                     // Purple
                     sprite.SetColor(Color(86, 63, 98));
-                    
+
                     // Fire button's _event action.
                     event();
                 }
-                
+
                 else
                 {
 					// Dark purple

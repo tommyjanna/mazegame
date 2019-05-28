@@ -12,21 +12,22 @@ void SceneManager::ChangeScene(int scene)
     {
     case SceneManager::MENU:
     {
-		Button* butt = new Button(50, 468, 1, "Play", 34, []() { SceneManager::ChangeScene(SceneManager::GAME); } );
-        GameObject::objects.Add(butt, GameObject::objects.GetLast());
-		
-        Button* ass = new Button(370, 450, 1, "Auto-\nSolver", 34, []() { SceneManager::ChangeScene(SceneManager::AUTOSOLVER); } );
-        GameObject::objects.Add(ass, GameObject::objects.GetLast());
-        
         MyText* text = new MyText(85, 50, 5, "MAZE GAME", 52);
         GameObject::objects.Add(text, GameObject::objects.GetLast());
+
+		Button* butt = new Button(50, 468, 1, "Play", 34, []() { SceneManager::ChangeScene(SceneManager::GAME); } );
+        GameObject::objects.Add(butt, GameObject::objects.GetLast());
+
+        Button* ass = new Button(370, 450, 1, "Auto-\nSolver", 34, []() { SceneManager::ChangeScene(SceneManager::AUTOSOLVER); } );
+        GameObject::objects.Add(ass, GameObject::objects.GetLast());
+
         break;
 	}
-	
+
     case SceneManager::GAME:
     {
 		Maze m;
-		
+
         //Ship* ship = new Ship(2, Game::_renderer);
         //ship->_texture->LoadTexture("../assets/graphics/spaceship.png");C
 
@@ -38,6 +39,6 @@ void SceneManager::ChangeScene(int scene)
         break;
 	} // case
     } // switch
-    
+
     return;
 }
