@@ -10,6 +10,7 @@
 #define SCENEMANAGER_H
 
 #include "GameObject.h"
+#include "Maze.h"
 #include "GameObjects/Button.h"
 #include "GameObjects/Text.h"
 
@@ -18,8 +19,8 @@ namespace SceneManager
     enum SCENES
     {
         MENU,
-        AUTOSOLVER,
-        GAME
+        GAME,
+        AUTOSOLVER
     };
 
     void ChangeScene(int scene);

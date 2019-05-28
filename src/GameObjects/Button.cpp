@@ -25,7 +25,7 @@ void Button::Update()
     if(timerRunning)
     {
         _elapsedTime = chrono::system_clock::now() - _beginningTime;
-        if(_elapsedTime.count() < 200) // 200 milliseconds between each push
+        if(_elapsedTime.count() < 50) // 50 milliseconds between each push
         {
             timeCheck = false;
         }
@@ -53,7 +53,8 @@ void Button::Update()
 
                     down = false;
                     
-                    sprite.SetColor(Color(48, 96, 48));
+                    // Purple
+                    sprite.SetColor(Color(86, 63, 98));
                     
                     // Fire button's _event action.
                     event();
@@ -61,14 +62,15 @@ void Button::Update()
                 
                 else
                 {
-					sprite.SetColor(Color(48, 148, 48));
+					// Dark purple
+					sprite.SetColor(Color(58, 41, 66));
 				}
             }
 
             else // Mouse over.
             {
 				down = false;
-				sprite.SetColor(Color(48, 96, 48));
+				sprite.SetColor(Color(86, 63, 98));
             }
         }
 

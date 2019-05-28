@@ -23,16 +23,18 @@ void SceneManager::ChangeScene(int scene)
         break;
 	}
 	
-    case SceneManager::AUTOSOLVER:
-    {
-		break;
-	}
-
     case SceneManager::GAME:
     {
+		Maze m;
+		
         //Ship* ship = new Ship(2, Game::_renderer);
         //ship->_texture->LoadTexture("../assets/graphics/spaceship.png");C
 
+        break;
+	}
+
+    case SceneManager::AUTOSOLVER:
+    {
         break;
 	} // case
     } // switch
