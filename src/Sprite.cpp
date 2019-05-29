@@ -6,12 +6,16 @@
 
 #include "Sprite.h"
 
-void MySprite::LoadTexture(string _path)
+void MySprite::LoadTexture(string _path, int _scale)
 {
 	texture.loadFromFile(_path);
-	texture.setSmooth(true);
+
+	// Disable anti-aliasing to display true pixel data.
+	texture.setSmooth(false);
 
 	sprite.setTexture(texture);
+
+	sprite.setScale(_scale, _scale);
 
 	drawable = &sprite;
 
