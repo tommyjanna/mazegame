@@ -10,7 +10,7 @@ GameObject::GameObject(int _x, int _y, Uint8 _layer)
 {
 	xPos = _x;
 	yPos = _y;
-	
+
 	layer = _layer;
 }
 

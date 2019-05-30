@@ -25,21 +25,21 @@ class Game
 public:
 	Game();
 	~Game();
-	
+
 	void Run();
-	
+
 	void Input();
 	void Update();
 	void Draw();
-	
+
 	void Cleanup();
-	
+
 	static Vector2i mousePos;
 	static bool mouseState[2];
-	
+
 private:
 	RenderWindow window;
-	
+
 	bool mouseEventOccur;
 };
 

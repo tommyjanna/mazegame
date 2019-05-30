@@ -9,9 +9,9 @@
 Wall::Wall(int _x, int _y, Uint8 _layer) : GameObject(_x, _y, _layer)
 {
 #ifndef _WIN32
-    sprite.LoadTexture("../assets/sprites/wall.png", 2);
+    sprite.LoadTexture("../assets/sprites/wall.png", 2.5f);
 #else
-    sprite.LoadTexture("assets/sprites/wall.png", 2);
+    sprite.LoadTexture("assets/sprites/wall.png", 2.5f);
 #endif
 }
 

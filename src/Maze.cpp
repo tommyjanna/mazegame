@@ -11,6 +11,13 @@ Maze::Maze()
 	// 0 - Space
 	// 1 - Wall
 
-	Wall* wall = new Wall(20, 20, 1);
-	GameObject::objects.Add(wall, GameObject::objects.GetLast());
+	for(int i = 0; i < 15; i++)
+    {
+        Wall* wall = new Wall(40 * i, 0, 1);
+        GameObject::objects.Add(wall, GameObject::objects.GetLast());
+
+        wall = new Wall(40 * i, 560, 1);
+        GameObject::objects.Add(wall, GameObject::objects.GetLast());
+
+    }
 }

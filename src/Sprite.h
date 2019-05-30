@@ -18,7 +18,7 @@ class MySprite
 {
 public:
 
-    void LoadTexture(string _path, int _scale);
+    void LoadTexture(string _path, float _scale);
     void LoadRenderedText(string _text, Uint8 _fontSize);
 
     void SetColor(Color _colour);

@@ -6,7 +6,7 @@
 
 #include "Sprite.h"
 
-void MySprite::LoadTexture(string _path, int _scale)
+void MySprite::LoadTexture(string _path, float _scale)
 {
 	texture.loadFromFile(_path);
 
