@@ -6,7 +6,7 @@
 
 #include "Text.h"
 
-MyText::MyText(int _x, int _y, Uint8 _layer, string _text, Uint8 _fontSize) : GameObject(_x, _y, _layer)
+MyText::MyText(int _x, int _y, Uint8 _layer, string _text, Uint8 _fontSize, string _label) : GameObject(_x, _y, _layer, _label)
 {
     sprite.LoadRenderedText(_text, _fontSize);
 }

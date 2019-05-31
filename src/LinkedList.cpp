@@ -168,7 +168,7 @@ LinkedList::Link* LinkedList::GetLink(GameObject* _content)
 		return nullptr;
 
 	// Content numbers are NOT always sequential, so can't assume must be less than size.
-	while (temp->GetContent() != _content) // Continue until reached reference number
+	while (temp->GetContent() != _content)
 	{
 		if (temp == last) // Reached end of list.
 			return nullptr;
@@ -189,6 +189,24 @@ LinkedList::Link* LinkedList::GetLinkAt(int _location)
 	for(int i = 0; i < _location; i++)
 	{
 		if(temp == last) // Reached end of list.
+			return nullptr;
+
+		temp = temp->GetNext();
+	}
+
+	return temp; // Found link
+}
+
+LinkedList::Link* LinkedList::GetLinkWithLabel(string _label)
+{
+	Link* temp = first;
+
+	if (temp == nullptr) // Empty list
+		return nullptr;
+
+	while (temp->GetContent()->GetLabel() != _label)
+	{
+		if (temp == last) // Reached end of list.
 			return nullptr;
 
 		temp = temp->GetNext();

@@ -6,7 +6,7 @@
 
 #include "Button.h"
 
-Button::Button(int _x, int _y, Uint8 _layer, string _text, Uint8 _fontSize, std::function<void()> const& _event) : GameObject(_x, _y, _layer)
+Button::Button(int _x, int _y, Uint8 _layer, string _text, Uint8 _fontSize, string _label, std::function<void()> const& _event) : GameObject(_x, _y, _layer, _label)
 {
     down = false;
     timerRunning = false;

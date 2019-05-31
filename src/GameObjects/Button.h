@@ -17,7 +17,7 @@
 class Button : public GameObject
 {
 public:
-    Button(int _x, int _y, Uint8 _layer, string _text, Uint8 _fontSize, std::function<void()> const& _event);
+    Button(int _x, int _y, Uint8 _layer, string _text, Uint8 _fontSize, string _label, std::function<void()> const& _event);
 
     void Update() override;
     void Destroy() override;

@@ -6,12 +6,14 @@
 
 #include "GameObject.h"
 
-GameObject::GameObject(int _x, int _y, Uint8 _layer)
+GameObject::GameObject(int _x, int _y, Uint8 _layer, string _label)
 {
 	xPos = _x;
 	yPos = _y;
 
 	layer = _layer;
+	
+	label = _label;
 }
 
 GameObject::~GameObject()
@@ -26,4 +28,9 @@ void GameObject::UpdatePosition()
 Uint8 GameObject::GetLayer()
 {
 	return layer;
+}
+
+string GameObject::GetLabel()
+{
+	return label;
 }

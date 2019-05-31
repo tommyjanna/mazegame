@@ -19,7 +19,7 @@ public:
     Maze();
 
 private:
-
+	Uint8 mazeLayout[15][15];
 };
 
 #endif

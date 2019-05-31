@@ -16,10 +16,12 @@
 
 using namespace sf;
 
+class LinkedList;
+
 class GameObject
 {
 public:
-	GameObject(int _x, int _y, Uint8 _layer);
+	GameObject(int _x, int _y, Uint8 _layer, string _label);
 	virtual ~GameObject();
 
 	virtual void Update() = 0; // (= 0) makes this a pure virtual method, so Update() must be implemented.
@@ -28,9 +30,10 @@ public:
 	
 	void UpdatePosition();
 	
-	static LinkedList objects;
+	static LinkedList* objects;
 	
 	Uint8 GetLayer();
+	string GetLabel();
 	
 protected:
 	int xPos, yPos;
@@ -39,6 +42,8 @@ protected:
 	
 private:
 	Uint8 layer;
+	
+	string label;
 };
 
 #endif

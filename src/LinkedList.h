@@ -8,6 +8,11 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
+#include <string>
+#include "GameObject.h"
+
+using namespace std;
+
 class GameObject;
 
 class LinkedList
@@ -45,6 +50,7 @@ public:
 	Link* Remove(Link*); // Removes item in list and returns it to be transferred
 	Link* GetLink(GameObject*); // Finds link with content
 	Link* GetLinkAt(int); // Finds link at location
+	Link* GetLinkWithLabel(string); // Finds link with given label
 	Link* GetFirst();
 	Link* GetLast();
 	int GetSize();

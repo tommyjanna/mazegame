@@ -6,7 +6,7 @@
 
 #include "Wall.h"
 
-Wall::Wall(int _x, int _y, Uint8 _layer) : GameObject(_x, _y, _layer)
+Wall::Wall(int _x, int _y, Uint8 _layer) : GameObject(_x, _y, _layer, "Wall")
 {
 #ifndef _WIN32
     sprite.LoadTexture("../assets/sprites/wall.png", 2.5f);

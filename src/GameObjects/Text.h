@@ -13,7 +13,7 @@
 class MyText : public GameObject
 {
 public:
-    MyText(int _x, int _y, Uint8 _layer, string _text, Uint8 _fontSize);
+    MyText(int _x, int _y, Uint8 _layer, string _text, Uint8 _fontSize, string _label);
 
     void Update() override;
     void Destroy() override;

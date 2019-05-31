@@ -9,11 +9,12 @@
 // Declare static members.
 Vector2i Game::mousePos;
 bool Game::mouseState[2];
-LinkedList GameObject::objects;
+LinkedList* GameObject::objects;
 
 Game::Game()
 {
 	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Maze Game");
+	GameObject::objects = new LinkedList();
 	
 	SceneManager::ChangeScene(SceneManager::MENU);
 }
@@ -89,9 +90,9 @@ void Game::Input()
 void Game::Update()
 {	
 	// Update existing GameObjects
-	for(int i = 0; i < GameObject::objects.GetSize(); i++)
+	for(int i = 0; i < GameObject::objects->GetSize(); i++)
 	{
-		GameObject::objects.GetLinkAt(i)->GetContent()->Update();
+		GameObject::objects->GetLinkAt(i)->GetContent()->Update();
 	}
 
 	return;
@@ -103,13 +104,13 @@ void Game::Draw()
 
 	for(int i = 1; i < 6; i++)
 	{
-		for(int j = 0; j < GameObject::objects.GetSize(); j++)
+		for(int j = 0; j < GameObject::objects->GetSize(); j++)
 		{
-			if(GameObject::objects.GetLinkAt(j)->GetContent()->GetLayer() == i)
+			if(GameObject::objects->GetLinkAt(j)->GetContent()->GetLayer() == i)
 			{	
 				// Draw to the back buffer.
-				GameObject::objects.GetLinkAt(j)->GetContent()->UpdatePosition();
-				window.draw(*GameObject::objects.GetLinkAt(j)->GetContent()->GetDrawable());
+				GameObject::objects->GetLinkAt(j)->GetContent()->UpdatePosition();
+				window.draw(*GameObject::objects->GetLinkAt(j)->GetContent()->GetDrawable());
 			}
 		}
 	}
