@@ -34,6 +34,7 @@ private:
 	
 	string wallPath;
 	string infoPath;
+	string inventoryPath;
 	
 	MyText* startText;
 	MyText* endText;

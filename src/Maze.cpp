@@ -30,10 +30,12 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 				wallPath = "../assets/sprites/wall.png";
 				redPath = "../assets/sprites/red.png";
 				infoPath = "../assets/sprites/infobox.png";
+				inventoryPath = "../assets/sprites/inventorybox.png";
 #else
 				wallPath = "assets/sprites/wall.png";
 				redPath = "assets/sprites/red.png";
 				infoPath = "assets/sprites/infobox.png";
+				inventoryPath = "assets/sprites/inventorybox.png";
 #endif
 
 	for(int i = 0; i < 15; i++)
@@ -75,6 +77,7 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 	endText = new MyText(40 * end.x + 3, 40 * end.y - 3, 3, "E", 40, "End Icon");
 	
 	MyImage* infoBox = new MyImage(200, 600, 4, infoPath, "Info Box");
+	MyImage* inventoryBox = new MyImage(0, 600, 4, inventoryPath, "Inventory Box");
 }
 
 void Maze::Update()
