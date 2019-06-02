@@ -11,15 +11,43 @@
 
 #include "GameObject.h"
 #include "Game.h"
-#include "GameObjects/Wall.h"
+#include "GameObjects/Image.h"
+#include "GameObjects/Text.h"
+#include "Stack.h"
+#include "Point.h"
 
-class Maze
+class Maze : public GameObject
 {
 public:
-    Maze();
+    Maze(bool _autoSolver);
+
+    void Update() override;
+    void Destroy() override;
+    Drawable* GetDrawable() override;
 
 private:
 	Uint8 mazeLayout[15][15];
+	
+	Point start;
+	Point end;
+	Point currentPos;
+	
+	string wallPath;
+	string infoPath;
+	
+	MyText* startText;
+	MyText* endText;
+	
+	// Data pertaining to the autosolver
+	bool autoSolver;
+	void AutoSolverStep();
+	Stack<char> solverMovement;
+	Stack<MyImage*> solverVisual;
+	bool solverVisited[15][15];
+	MyText* attemptedMoves;
+	MyText* totalMoves;
+	string redPath;
+	int nAttemptedMoves;
 };
 
 #endif

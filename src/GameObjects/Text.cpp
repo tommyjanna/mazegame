@@ -25,3 +25,8 @@ Drawable* MyText::GetDrawable()
 {
 	return sprite.GetDrawable();
 }
+
+void MyText::UpdateText(string _text, int _fontSize)
+{
+	sprite.LoadRenderedText(_text, _fontSize);
+}

@@ -14,6 +14,8 @@ GameObject::GameObject(int _x, int _y, Uint8 _layer, string _label)
 	layer = _layer;
 	
 	label = _label;
+	
+	objects->Add(this, objects->GetLast());
 }
 
 GameObject::~GameObject()

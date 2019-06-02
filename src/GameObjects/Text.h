@@ -18,6 +18,8 @@ public:
     void Update() override;
     void Destroy() override;
     Drawable* GetDrawable() override;
+    
+    void UpdateText(string _text, int _fontSize);
 };
 
 #endif
