@@ -27,18 +27,16 @@ public:
 
 private:
 	Uint8 mazeLayout[15][15];
-	
+
 	Point start;
 	Point end;
 	Point currentPos;
-	
-	string wallPath;
-	string infoPath;
-	string inventoryPath;
-	
+
+	string pathPrefix;
+
 	MyText* startText;
 	MyText* endText;
-	
+
 	// Data pertaining to the autosolver
 	bool autoSolver;
 	void AutoSolverStep();
@@ -47,7 +45,6 @@ private:
 	bool solverVisited[15][15];
 	MyText* attemptedMoves;
 	MyText* totalMoves;
-	string redPath;
 	int nAttemptedMoves;
 };
 

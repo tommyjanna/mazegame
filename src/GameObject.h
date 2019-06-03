@@ -14,8 +14,6 @@
 #include "LinkedList.h"
 #include "Sprite.h"
 
-using namespace sf;
-
 class LinkedList;
 
 class GameObject
@@ -27,22 +25,22 @@ public:
 	virtual void Update() = 0; // (= 0) makes this a pure virtual method, so Update() must be implemented.
 	virtual void Destroy() = 0;
 	virtual Drawable* GetDrawable() = 0;
-	
+
 	void UpdatePosition();
-	
+
 	static LinkedList* objects;
-	
+
 	Uint8 GetLayer();
 	string GetLabel();
-	
+
 protected:
 	int xPos, yPos;
-	
+
 	MySprite sprite;
-	
+
 private:
 	Uint8 layer;
-	
+
 	string label;
 };
 

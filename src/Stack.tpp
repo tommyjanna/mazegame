@@ -7,7 +7,7 @@
 template <class T>
 Stack<T>::Stack()
 {
-	top = 0;
+	top = -1;
 }
 
 template <class T>
@@ -28,7 +28,7 @@ inline char Stack<char>::Pop()
 	{
 		return content[top--];
 	}
-	
+
 	return '\0';
 }
 
@@ -39,6 +39,6 @@ inline MyImage* Stack<MyImage*>::Pop()
 	{
 		return content[top--];
 	}
-	
+
 	return nullptr;
 }

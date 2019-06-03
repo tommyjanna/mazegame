@@ -18,8 +18,6 @@
 #define SCREEN_WIDTH 600
 #define SCREEN_HEIGHT 720
 
-using namespace sf;
-
 class Game
 {
 public:
