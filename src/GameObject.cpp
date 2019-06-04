@@ -18,10 +18,6 @@ GameObject::GameObject(int _x, int _y, Uint8 _layer, string _label)
 	objects->Add(this, objects->GetLast());
 }
 
-GameObject::~GameObject()
-{
-}
-
 void GameObject::UpdatePosition()
 {
 	return sprite.SetPosition(xPos, yPos);

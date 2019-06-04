@@ -10,15 +10,17 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 {
 	// 0 - Space
 	// 1 - Wall
+	// 2 - Key
+	// 3 - Door
 
 	Uint8 tempMaze[15][15] = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 							   { 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
 							   { 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1 },
 							   { 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1 },
 							   { 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
-							   { 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1 },
-							   { 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1 },
-							   { 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1 },
+							   { 1, 0, 1, 0, 1, 2, 1, 0, 1, 1, 1, 0, 1, 0, 1 },
+							   { 1, 0, 1, 0, 1, 1, 1, 0, 3, 0, 1, 1, 1, 0, 1 },
+							   { 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1 },
 							   { 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
 							   { 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1 },
 							   { 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1 },
@@ -42,6 +44,16 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 			{
 				MyImage* wall = new MyImage(40 * j, 40 * i, 1, pathPrefix + "assets/sprites/wall.png", "Wall");
 			}
+			
+			else if(mazeLayout[i][j] == 2)
+			{
+				MyImage* key = new MyImage(40 * j, 40 * i, 2, pathPrefix + "assets/sprites/key.png", "Key");
+			}
+			
+			else if(mazeLayout[i][j] == 3)
+			{
+				MyImage* door = new MyImage(40 * j, 40 * i, 2, pathPrefix + "assets/sprites/door.png", "Door");
+			}
 		}
 	}
 
@@ -50,6 +62,9 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 
 	end.x = 13;
 	end.y = 13;
+	
+	doorPos.x = 8;
+	doorPos.y = 6;
 
 	currentPos = start;
 
@@ -66,15 +81,20 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 
 		nAttemptedMoves = 0;
 	}
+	
+	else
+	{
+		Player* player = new Player(40 * start.x, 40 * start.y, 4, 100, 100, "Player");
+	}
 
 	startText = new MyText(40 * start.x + 3, 40 * start.y - 3, 3, "S", 40, "Start Icon");
 	endText = new MyText(40 * end.x + 3, 40 * end.y - 3, 3, "E", 40, "End Icon");
 
 	MyImage* infoBox = new MyImage(200, 600, 4, pathPrefix + "assets/sprites/infobox.png", "Info Box");
 	MyImage* inventoryBox = new MyImage(0, 600, 4, pathPrefix + "assets/sprites/inventorybox.png", "Inventory Box");
-
-	MyImage* key = new MyImage(360, 160, 2, pathPrefix + "assets/sprites/key.png", "Key");
-	MyImage* door = new MyImage(320, 280, 2, pathPrefix + "assets/sprites/door.png", "Door");
+	
+	Button* returnButton = new Button(460, 685, 4, "Return", 20, "Return Button", []() { SceneManager::ChangeScene(SceneManager::MENU); } );
+	
 }
 
 void Maze::Update()
@@ -83,10 +103,36 @@ void Maze::Update()
 	{
 		AutoSolverStep();
 	}
+	
+	return;
 }
 
 void Maze::Destroy()
 {
+	for(int i = 0; i < 127; i++)
+	{
+		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Wall"));
+	}
+	
+	for(int i = 0; i < 50; i++)
+	{
+		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Visited"));
+	}
+	
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Info Box"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Inventory Box"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Start Icon"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("End Icon"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Return Button"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Attempted Moves"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Total Moves"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Player"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
+	
+	
+	return;
 }
 
 Drawable* Maze::GetDrawable()
@@ -98,7 +144,8 @@ void Maze::AutoSolverStep()
 {
 	// First, try to move in any direction, not obstructed by a wall,
 	// and not previously visited.
-	if(mazeLayout[currentPos.y - 1][currentPos.x] == 0 && solverVisited[currentPos.y - 1][currentPos.x] == false)
+	if(mazeLayout[currentPos.y - 1][currentPos.x] % 2 == 0 
+		&& solverVisited[currentPos.y - 1][currentPos.x] == false)
 	{
 		// Move up
 		solverMovement.Push('u');
@@ -110,7 +157,8 @@ void Maze::AutoSolverStep()
 		attemptedMoves->UpdateText("Attempted moves: " + std::to_string(++nAttemptedMoves), 15);
 	}
 
-	else if(mazeLayout[currentPos.y][currentPos.x + 1] == 0 && solverVisited[currentPos.y][currentPos.x + 1] == false)
+	else if(mazeLayout[currentPos.y][currentPos.x + 1] % 2 == 0 
+			&& solverVisited[currentPos.y][currentPos.x + 1] == false)
 	{
 		// Move right
 		solverMovement.Push('r');
@@ -122,7 +170,8 @@ void Maze::AutoSolverStep()
 		attemptedMoves->UpdateText("Attempted moves: " + std::to_string(++nAttemptedMoves), 15);
 	}
 
-	else if(mazeLayout[currentPos.y][currentPos.x - 1] == 0 && solverVisited[currentPos.y][currentPos.x - 1] == false)
+	else if(mazeLayout[currentPos.y][currentPos.x - 1] % 2 == 0
+			&& solverVisited[currentPos.y][currentPos.x - 1] == false)
 	{
 		// Move left
 		solverMovement.Push('l');
@@ -134,7 +183,8 @@ void Maze::AutoSolverStep()
 		attemptedMoves->UpdateText("Attempted moves: " + std::to_string(++nAttemptedMoves), 15);
 	}
 
-	else if(mazeLayout[currentPos.y + 1][currentPos.x] == 0 && solverVisited[currentPos.y + 1][currentPos.x] == false)
+	else if(mazeLayout[currentPos.y + 1][currentPos.x] % 2 == 0
+			&& solverVisited[currentPos.y + 1][currentPos.x] == false)
 	{
 		// Move down
 		solverMovement.Push('d');
@@ -175,6 +225,20 @@ void Maze::AutoSolverStep()
 			GameObject::objects->Delete(GameObject::objects->GetLink(solverVisual.Pop()));
 		}
 	}
+	
+	if(mazeLayout[currentPos.y][currentPos.x] == 2)
+	{
+		mazeLayout[doorPos.y][doorPos.x] = 0;
+		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
+		
+		MyImage* keyCollected = new MyImage(20, 620, 2, pathPrefix + "assets/sprites/key.png", 3.5f, "Key Collected");
+	}
+	
+	if(currentPos == doorPos)
+	{
+		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
+		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
+	}
 
 	if(currentPos == end)
 	{
@@ -184,5 +248,5 @@ void Maze::AutoSolverStep()
 	totalMoves->UpdateText("Total moves: " + std::to_string(solverMovement.top), 15);
 
 	// Pause program for visual effect while using autosolver
-	sleep(milliseconds(1000/30));
+	sleep(milliseconds(1000/20));
 }

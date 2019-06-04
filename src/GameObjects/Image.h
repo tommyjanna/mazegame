@@ -14,6 +14,7 @@ class MyImage : public GameObject
 {
 public:
     MyImage(int _x, int _y, Uint8 _layer, string _path, string _label);
+    MyImage(int _x, int _y, Uint8 _layer, string _path, int _scale, string _label);
 
     void Update() override;
     void Destroy() override;

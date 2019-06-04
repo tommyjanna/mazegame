@@ -12,6 +12,11 @@ void SceneManager::ChangeScene(int scene)
     {
     case SceneManager::MENU:
     {
+		if(GameObject::objects->GetLinkWithLabel("Maze") != nullptr)
+		{
+			GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Maze"));
+		}
+		
         MyText* text = new MyText(85, 50, 5, "MAZE GAME", 52, "Title");
 
 		Button* butt = new Button(50, 468, 1, "Play", 34, "Button 1", []() { SceneManager::ChangeScene(SceneManager::GAME); } );

@@ -20,7 +20,6 @@ class GameObject
 {
 public:
 	GameObject(int _x, int _y, Uint8 _layer, string _label);
-	virtual ~GameObject();
 
 	virtual void Update() = 0; // (= 0) makes this a pure virtual method, so Update() must be implemented.
 	virtual void Destroy() = 0;

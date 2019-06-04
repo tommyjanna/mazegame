@@ -13,6 +13,8 @@
 #include "Game.h"
 #include "GameObjects/Image.h"
 #include "GameObjects/Text.h"
+#include "GameObjects/Player.h"
+#include "GameObjects/Button.h"
 #include "Stack.h"
 #include "Point.h"
 
@@ -31,6 +33,7 @@ private:
 	Point start;
 	Point end;
 	Point currentPos;
+	Point doorPos;
 
 	string pathPrefix;
 

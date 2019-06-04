@@ -19,11 +19,6 @@ Game::Game()
 	SceneManager::ChangeScene(SceneManager::MENU);
 }
 
-Game::~Game()
-{
-	Cleanup();
-}
-
 void Game::Run()
 {
 	while(window.isOpen())
@@ -35,6 +30,7 @@ void Game::Run()
 		// Halt the program for a rate of approx. 30 updates/sec.
 		sleep(milliseconds(1000/30));
 	}
+	
 	return;
 }
 
@@ -116,12 +112,4 @@ void Game::Draw()
 	}
 
 	window.display();
-}
-
-void Game::Cleanup()
-{
-	//delete(window);
-	
-	//window = nullptr;
-	return;
 }

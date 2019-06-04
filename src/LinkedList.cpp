@@ -117,6 +117,8 @@ void LinkedList::Delete(Link* _link)
 			_link->GetPrev()->SetNext(_link->GetNext());
 			_link->GetNext()->SetPrev(_link->GetPrev());
 		}
+		
+		_link->GetContent()->Destroy();
 
 		delete(_link);
 	}
