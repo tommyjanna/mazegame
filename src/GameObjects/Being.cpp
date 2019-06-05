@@ -5,6 +5,7 @@
 // Created by:		Tommy Janna
 
 #include "Being.h"
+#include <iostream>
 
 Being::Being(Point _position, Uint8 _layer, int _hp, int _ap, string _label) :
                 GameObject(_position.x * 40, _position.y * 40, _layer, _label)
@@ -17,8 +18,10 @@ Being::Being(Point _position, Uint8 _layer, int _hp, int _ap, string _label) :
 
 void Being::Update()
 {
-    sprite.SetPosition(mazePos.x, mazePos.y);
-
+	xPos = mazePos.x * 40;
+	yPos = mazePos.y * 40;
+	
+	UpdatePosition();
 	return;
 }
 
