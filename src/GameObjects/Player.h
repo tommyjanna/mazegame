@@ -10,11 +10,12 @@
 #define PLAYER_H
 
 #include "Being.h"
+#include "../Game.h"
 
 class Player : public Being
 {
 public:
-    Player(int _x, int _y, Uint8 _layer, int _hp, int _ap, string _label);
+    Player(Point _position, Uint8 _layer, int _hp, int _ap, string _label);
 
     void Update() override;
     void Destroy() override;

@@ -31,6 +31,7 @@ public:
 
 	static Vector2i mousePos;
 	static bool mouseState[2];
+	static bool keyboardState[4];
 
 private:
 	RenderWindow window;

@@ -6,7 +6,7 @@
 
 #include "Player.h"
 
-Player::Player(int _x, int _y, Uint8 _layer, int _hp, int _ap, string _label) : Being(_x, _y, _layer, _hp, _ap, _label)
+Player::Player(Point _position, Uint8 _layer, int _hp, int _ap, string _label) :Being(_position, _layer, _hp, _ap, _label)
 {
 #ifndef _WIN32
 	sprite.LoadTexture("../assets/sprites/player.png", 2.5f);
@@ -17,6 +17,27 @@ Player::Player(int _x, int _y, Uint8 _layer, int _hp, int _ap, string _label) : 
 
 void Player::Update()
 {
+    if(Game::keyboardState[0]) // Up
+    {
+        mazePos.y--;
+    }
+
+    else if(Game::keyboardState[1]) // Down
+    {
+        mazePos.y++;
+    }
+
+    else if(Game::keyboardState[2]) // Left
+    {
+        mazePos.x--;
+    }
+
+    else if(Game::keyboardState[3]) // Right
+    {
+        mazePos.x++;
+    }
+
+    Being::Update();
 	return;
 }
 

@@ -9,15 +9,19 @@
 #define BEING_H
 
 #include "../GameObject.h"
+#include "../Point.h"
 
 class Being : public GameObject
 {
 public:
-    Being(int _x, int _y, Uint8 _layer, int _hp, int _ap, string _label);
+    Being(Point _position, Uint8 _layer, int _hp, int _ap, string _label);
 
     void Update() override;
     void Destroy() override;
     Drawable* GetDrawable() override;
+
+protected:
+    Point mazePos;
 
 private:
 	int hp;
