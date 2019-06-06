@@ -6,6 +6,8 @@
 
 #include "Maze.h"
 
+Uint8 Maze::mazeLayout[15][15];
+
 Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 {
 	// 0 - Space
@@ -138,6 +140,11 @@ void Maze::Destroy()
 Drawable* Maze::GetDrawable()
 {
 	return nullptr;
+}
+
+Uint8 Maze::GetCell(Uint8 _x, Uint8 _y)
+{
+    return Maze::mazeLayout[_y][_x];
 }
 
 void Maze::AutoSolverStep()

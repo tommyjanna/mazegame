@@ -20,25 +20,41 @@ void Player::Update()
 {
     if(Game::keyboardState[0]) // Up
     {
-        mazePos.y--;
+        if(Maze::GetCell(mazePos.x, mazePos.y - 1) % 2 == 0) // Even numbers are movable
+        {
+            mazePos.y--;
+        }
+
         Game::keyboardState[0] = false;
     }
 
     else if(Game::keyboardState[1]) // Down
     {
-        mazePos.y++;
+        if(Maze::GetCell(mazePos.x, mazePos.y + 1) % 2 == 0) // Even numbers are movable
+        {
+            mazePos.y++;
+        }
+
         Game::keyboardState[1] = false;
     }
 
     else if(Game::keyboardState[2]) // Left
     {
-        mazePos.x--;
+        if(Maze::GetCell(mazePos.x - 1, mazePos.y) % 2 == 0) // Even numbers are movable
+        {
+            mazePos.x--;
+        }
+
         Game::keyboardState[2] = false;
     }
 
     else if(Game::keyboardState[3]) // Right
     {
-        mazePos.x++;
+        if(Maze::GetCell(mazePos.x + 1, mazePos.y) % 2 == 0) // Even numbers are movable
+        {
+            mazePos.x++;
+        }
+
         Game::keyboardState[3] = false;
     }
 

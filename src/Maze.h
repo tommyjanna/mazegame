@@ -27,8 +27,10 @@ public:
     void Destroy() override;
     Drawable* GetDrawable() override;
 
+    static Uint8 GetCell(Uint8 _x, Uint8 _y);
+
 private:
-	Uint8 mazeLayout[15][15];
+	static Uint8 mazeLayout[15][15];
 
 	Point start;
 	Point end;

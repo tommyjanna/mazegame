@@ -20,7 +20,7 @@ void Being::Update()
 {
 	xPos = mazePos.x * 40;
 	yPos = mazePos.y * 40;
-	
+
 	UpdatePosition();
 	return;
 }
