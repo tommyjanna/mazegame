@@ -10,9 +10,9 @@
 Player::Player(Point _position, Uint8 _layer, int _hp, int _ap, string _label) :Being(_position, _layer, _hp, _ap, _label)
 {
 #ifndef _WIN32
-	sprite.LoadTexture("../assets/sprites/player.png", 2.5f);
+	sprite.LoadTexture("../assets/sprites/mike.png", 2.5f);
 #else
-	sprite.LoadTexture("assets/sprites/player.png", 2.5f);
+	sprite.LoadTexture("assets/sprites/mike.png", 2.5f);
 #endif
 }
 
