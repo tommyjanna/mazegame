@@ -30,31 +30,27 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 							   { 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1 },
 							   { 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1 },
 							   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-#ifndef _WIN32
-                pathPrefix = "../";
-#else
-                pathPrefix = "";
-#endif
 
 	for(int i = 0; i < 15; i++)
 	{
 		for(int j = 0; j < 15; j++)
 		{
 			mazeLayout[i][j] = tempMaze[i][j];
+			solverVisited[i][j] = false;
 
 			if(mazeLayout[i][j] == 1)
 			{
-				MyImage* wall = new MyImage(40 * j, 40 * i, 1, pathPrefix + "assets/sprites/wall.png", "Wall");
+				MyImage* wall = new MyImage(40 * j, 40 * i, 1, std::string(PATH_PREFIX) + "assets/sprites/wall.png", "Wall");
 			}
 
 			else if(mazeLayout[i][j] == 2)
 			{
-				MyImage* key = new MyImage(40 * j, 40 * i, 2, pathPrefix + "assets/sprites/key.png", "Key");
+				MyImage* key = new MyImage(40 * j, 40 * i, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", "Key");
 			}
 
 			else if(mazeLayout[i][j] == 3)
 			{
-				MyImage* door = new MyImage(40 * j, 40 * i, 2, pathPrefix + "assets/sprites/door.png", "Door");
+				MyImage* door = new MyImage(40 * j, 40 * i, 2, std::string(PATH_PREFIX) + "assets/sprites/door.png", "Door");
 			}
 		}
 	}
@@ -75,7 +71,7 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 	if(autoSolver)
 	{
 		// Show players starting point with red rect.
-		MyImage* red = new MyImage(40 * start.x, 40 * start.y, 2, pathPrefix + "assets/sprites/red.png", "Visited");
+		MyImage* red = new MyImage(40 * start.x, 40 * start.y, 2, std::string(PATH_PREFIX) + "assets/sprites/red.png", "Visited");
 		solverVisual.Push(red);
 
 		attemptedMoves = new MyText(220, 620, 4, "Attempted moves: 0", 15, "Attempted Moves");
@@ -92,8 +88,8 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 	startText = new MyText(40 * start.x + 3, 40 * start.y - 3, 3, "S", 40, "Start Icon");
 	endText = new MyText(40 * end.x + 3, 40 * end.y - 3, 3, "E", 40, "End Icon");
 
-	MyImage* infoBox = new MyImage(200, 600, 4, pathPrefix + "assets/sprites/infobox.png", "Info Box");
-	MyImage* inventoryBox = new MyImage(0, 600, 4, pathPrefix + "assets/sprites/inventorybox.png", "Inventory Box");
+	MyImage* infoBox = new MyImage(200, 600, 4, std::string(PATH_PREFIX) + "assets/sprites/infobox.png", "Info Box");
+	MyImage* inventoryBox = new MyImage(0, 600, 4, std::string(PATH_PREFIX) + "assets/sprites/inventorybox.png", "Inventory Box");
 
 	Button* returnButton = new Button(460, 685, 4, "Return", 20, "Return Button", []() { SceneManager::ChangeScene(SceneManager::MENU); } );
 
@@ -147,6 +143,12 @@ Uint8 Maze::GetCell(Uint8 _x, Uint8 _y)
     return Maze::mazeLayout[_y][_x];
 }
 
+void Maze::SetCell(Uint8 _x, Uint8 _y, Uint8 _type)
+{
+    Maze::mazeLayout[_y][_x] = _type;
+    return;
+}
+
 void Maze::AutoSolverStep()
 {
 	// First, try to move in any direction, not obstructed by a wall,
@@ -158,7 +160,7 @@ void Maze::AutoSolverStep()
 		solverMovement.Push('u');
 		solverVisited[currentPos.y - 1][currentPos.x] = true;
 
-		MyImage* red = new MyImage(40 * currentPos.x, 40 * --currentPos.y, 2, pathPrefix + "assets/sprites/red.png", "Visited");
+		MyImage* red = new MyImage(40 * currentPos.x, 40 * --currentPos.y, 2, std::string(PATH_PREFIX) + "assets/sprites/red.png", "Visited");
 		solverVisual.Push(red);
 
 		attemptedMoves->UpdateText("Attempted moves: " + std::to_string(++nAttemptedMoves), 15);
@@ -171,7 +173,7 @@ void Maze::AutoSolverStep()
 		solverMovement.Push('r');
 		solverVisited[currentPos.y][currentPos.x + 1] = true;
 
-		MyImage* red = new MyImage(40 * ++currentPos.x, 40 * currentPos.y, 2, pathPrefix + "assets/sprites/red.png", "Visited");
+		MyImage* red = new MyImage(40 * ++currentPos.x, 40 * currentPos.y, 2, std::string(PATH_PREFIX) + "assets/sprites/red.png", "Visited");
 		solverVisual.Push(red);
 
 		attemptedMoves->UpdateText("Attempted moves: " + std::to_string(++nAttemptedMoves), 15);
@@ -184,7 +186,7 @@ void Maze::AutoSolverStep()
 		solverMovement.Push('l');
 		solverVisited[currentPos.y][currentPos.x - 1] = true;
 
-		MyImage* red = new MyImage(40 * --currentPos.x, 40 * currentPos.y, 2, pathPrefix + "assets/sprites/red.png", "Visited");
+		MyImage* red = new MyImage(40 * --currentPos.x, 40 * currentPos.y, 2, std::string(PATH_PREFIX) + "assets/sprites/red.png", "Visited");
 		solverVisual.Push(red);
 
 		attemptedMoves->UpdateText("Attempted moves: " + std::to_string(++nAttemptedMoves), 15);
@@ -197,7 +199,7 @@ void Maze::AutoSolverStep()
 		solverMovement.Push('d');
 		solverVisited[currentPos.y + 1][currentPos.x] = true;
 
-		MyImage* red = new MyImage(40 * currentPos.x, 40 * ++currentPos.y, 2, pathPrefix + "assets/sprites/red.png", "Visited");
+		MyImage* red = new MyImage(40 * currentPos.x, 40 * ++currentPos.y, 2, std::string(PATH_PREFIX) + "assets/sprites/red.png", "Visited");
 		solverVisual.Push(red);
 
 		attemptedMoves->UpdateText("Attempted moves: " + std::to_string(++nAttemptedMoves), 15);
@@ -238,7 +240,7 @@ void Maze::AutoSolverStep()
 		mazeLayout[doorPos.y][doorPos.x] = 0;
 		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
 
-		MyImage* keyCollected = new MyImage(20, 620, 2, pathPrefix + "assets/sprites/key.png", 3.5f, "Key Collected");
+		MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
 	}
 
 	if(currentPos == doorPos)

@@ -20,6 +20,11 @@ public:
     void Update() override;
     void Destroy() override;
     Drawable* GetDrawable() override;
+
+private:
+	bool hasKey;
+	
+	MyText* infoText;
 };
 
 #endif

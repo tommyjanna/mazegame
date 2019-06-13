@@ -18,6 +18,12 @@
 #include "Stack.h"
 #include "Point.h"
 
+#ifndef _WIN32
+#define PATH_PREFIX "../"
+#else
+#define PATH_PREFIX ""
+#endif
+
 class Maze : public GameObject
 {
 public:
@@ -28,6 +34,7 @@ public:
     Drawable* GetDrawable() override;
 
     static Uint8 GetCell(Uint8 _x, Uint8 _y);
+    static void SetCell(Uint8 _x, Uint8 _y, Uint8 _type);
 
 private:
 	static Uint8 mazeLayout[15][15];
@@ -36,9 +43,7 @@ private:
 	Point end;
 	Point currentPos;
 	Point doorPos;
-
-	string pathPrefix;
-
+	
 	MyText* startText;
 	MyText* endText;
 
