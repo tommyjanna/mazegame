@@ -30,7 +30,7 @@ void Player::Update()
 				{
 					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
 
-					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(std::string(PATH_PREFIX)) + "assets/sprites/key.png", 3.5f, "Key Collected");
+					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
 					hasKey = true;
 					
 					Maze::SetCell(mazePos.x, mazePos.y, 0);
@@ -61,7 +61,7 @@ void Player::Update()
 				{
 					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
 
-					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(std::string(PATH_PREFIX)) + "assets/sprites/key.png", 3.5f, "Key Collected");
+					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
 					hasKey = true;
 
 					Maze::SetCell(mazePos.x, mazePos.y, 0);
@@ -92,7 +92,7 @@ void Player::Update()
 				{
 					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
 
-					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(std::string(PATH_PREFIX)) + "assets/sprites/key.png", 3.5f, "Key Collected");
+					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
 					hasKey = true;
 
 					Maze::SetCell(mazePos.x, mazePos.y, 0);
@@ -123,7 +123,7 @@ void Player::Update()
 				{
 					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
 
-					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(std::string(PATH_PREFIX)) + "assets/sprites/key.png", 3.5f, "Key Collected");
+					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
 					hasKey = true;
 					
 					Maze::SetCell(mazePos.x, mazePos.y, 0);

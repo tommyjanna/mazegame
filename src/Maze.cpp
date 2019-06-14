@@ -254,7 +254,7 @@ void Maze::AutoSolverStep()
 		autoSolver = false;
 	}
 
-	totalMoves->UpdateText("Total moves: " + std::to_string(solverMovement.top), 15);
+	totalMoves->UpdateText("Total moves: " + std::to_string(solverMovement.GetSize()), 15);
 
 	// Pause program for visual effect while using autosolver
 	sleep(milliseconds(1000/20));

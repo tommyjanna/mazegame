@@ -8,22 +8,31 @@
 #ifndef STACK_H
 #define STACK_H
 
-#define MAX_STACK_SIZE 100
-
 template <class T>
 class Stack
 {
+private:
+	class Node
+	{
+	public:
+		Node(T _content, Node* _last);
+		Node* last;
+		
+		T GetContent();
+	private:
+		T content;
+	};
+
+	Node* top;
+	int size;
 public:
 	Stack();
 	
 	T Pop();
+	T Peek();
 	void Push(T _value);
-
-	int top;
-
-private:
-	// Limit of 100 items.
-	T content[MAX_STACK_SIZE];
+	
+	int GetSize();
 };
 
 #include "Stack.tpp"

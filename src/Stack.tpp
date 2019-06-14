@@ -5,18 +5,31 @@
 // Created by:		Tommy Janna
 
 template <class T>
+Stack<T>::Node::Node(T _content, Node* _last)
+{
+	content = _content;
+	last = _last;
+}
+
+template <class T>
+T Stack<T>::Node::GetContent()
+{
+	return content;
+}
+
+template <class T>
 Stack<T>::Stack()
 {
-	top = -1;
+	top = nullptr;
+	size = 0;
 }
 
 template <class T>
 void Stack<T>::Push(T _value)
 {
-	if(top < MAX_STACK_SIZE - 1)
-	{
-		content[++top] = _value;
-	}
+	Node* node = new Node(_value, top);
+	top = node;
+	size++;
 
 	return;
 }
@@ -24,9 +37,12 @@ void Stack<T>::Push(T _value)
 template <>
 inline char Stack<char>::Pop()
 {
-	if(top > 0)
+	if(top != nullptr)
 	{
-		return content[top--];
+		char content = top->GetContent();
+		top = top->last;
+		size--;
+		return content;
 	}
 
 	return '\0';
@@ -35,10 +51,41 @@ inline char Stack<char>::Pop()
 template<>
 inline MyImage* Stack<MyImage*>::Pop()
 {
-	if(top > 0)
+	if(top != nullptr)
 	{
-		return content[top--];
+		MyImage* content = top->GetContent();
+		top = top->last;
+		size--;
+		return content;
 	}
 
 	return nullptr;
+}
+
+template <>
+inline char Stack<char>::Peek()
+{
+	if(top != nullptr)
+	{
+		return top->GetContent();
+	}
+
+	return '\0';
+}
+
+template<>
+inline MyImage* Stack<MyImage*>::Peek()
+{
+	if(top != nullptr)
+	{
+		return top->GetContent();
+	}
+
+	return nullptr;
+}
+
+template <class T>
+int Stack<T>::GetSize()
+{
+	return size;
 }
