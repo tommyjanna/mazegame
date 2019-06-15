@@ -2,7 +2,6 @@
 // Class name: 			 MyImage
 // Description of class: Simple GameObject that displays given image.
 // Date Created:		 May 27, 2019
-// Last Modified:		 May 27, 2019
 // Created by:			 Tommy Janna
 
 #ifndef IMAGE_H

@@ -4,7 +4,6 @@
 //						 If the player gets 2 of 3 right, the riddler is defeated,
 //						 otherwise the player is defeated.
 // Date Created:		 June 13, 2019
-// Last Modified:		 June 13, 2019
 // Created by:			 Tommy Janna
 
 #ifndef RIDDLER_H
@@ -23,7 +22,7 @@ public:
     void Destroy() override;
     Drawable* GetDrawable() override;
     
-    void Interact(string _action);
+    void Interact(string _action); // Updates info text to current riddle state.
 
 private:
 	Point mazePos;

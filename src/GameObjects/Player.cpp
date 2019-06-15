@@ -1,7 +1,6 @@
 // Player.cpp
 // Implementation of the Player class
 // Date Created:	June 3, 2019
-// Last Modified:	June 3, 2019
 // Created by:		Tommy Janna
 
 #include "Player.h"
@@ -24,9 +23,9 @@ Player::Player(Point _position, Uint8 _layer, string _label) : GameObject(_posit
 
 void Player::Update()
 {
-	if(!Turret::freeze && !interacting)
+	if(!Turret::freeze && !interacting) // Is the player allowed to move?
 	{
-		if(!(mazePos.x == 13 && mazePos.y == 13))
+		if(!(mazePos.x == 13 && mazePos.y == 13)) // Is player at end?
 		{
 			Uint8 movingCell;
 			
@@ -38,38 +37,44 @@ void Player::Update()
 				{
 					if(movingCell == 6) // Riddler
 					{
+						// Begin riddler interaction.
+						// Don't allow player to move during this time.
 						Maze::GetRiddler()->Interact("start");
 						interacting = true;
 					}
 					
 					else
 					{
+						// Regular movement.
 						Maze::SetCell(mazePos.x, mazePos.y, 0);
 						mazePos.y--;
 
 						if(movingCell == 2 && !hasKey) // On key
 						{
+							// Delete key from map, and add the icon to inventory.
 							GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
-
 							MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
 							hasKey = true;
 							
+							// Reset the tile to just a regular space.
 							Maze::SetCell(mazePos.x, mazePos.y, 0);
 							infoText->UpdateText("You just collected a key!\nThis could be useful for some door\naround here...", 15);
 						}
 						
 						else
 						{
+							// Set current cell to "player" (4)
 							Maze::SetCell(mazePos.x, mazePos.y, 4);
 						}
 					}
 				}
 				
-				else if(Maze::GetCell(mazePos.x, mazePos.y - 1) == 3 && hasKey)
+				else if(Maze::GetCell(mazePos.x, mazePos.y - 1) == 3 && hasKey) // Moving into door and has key?
 				{
 					Maze::SetCell(mazePos.x, mazePos.y, 0);
 					Maze::SetCell(mazePos.x, --mazePos.y, 4);
 					
+					// Remove door from map and key from inventory.
 					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
 					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
 					hasKey = false;
@@ -236,12 +241,13 @@ void Player::Update()
 			}
 		}
 		
-		else
+		else // Player reached end of maze.
 		{
 			infoText->UpdateText("You win!\nCongratulations Mike!", 15);
 		}
 	}
 
+	// Update player's absolute position.
 	xPos = mazePos.x * 40;
 	yPos = mazePos.y * 40;
 

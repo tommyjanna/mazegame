@@ -1,7 +1,6 @@
 // Sprite.cpp
 // Implementation of the MySprite class.
 // Date Created:	  May 25, 2019
-// Last Modified:	  May 25, 2019
 // Created by:		  Tommy Janna
 
 #include "Sprite.h"
@@ -14,9 +13,9 @@ void MySprite::LoadTexture(string _path, float _scale)
 	texture.setSmooth(false);
 
 	sprite.setTexture(texture);
-
 	sprite.setScale(_scale, _scale);
-
+	
+	// Current drawable is sprite, not text.
 	drawable = &sprite;
 
 	return;
@@ -34,9 +33,11 @@ void MySprite::LoadRenderedText(string _text, Uint8 _fontSize)
 	text.setCharacterSize(_fontSize);
 	text.setFillColor(Color::Black);
 
+	// Used for determining border for a button.
 	width = text.getLocalBounds().width;
 	height = text.getLocalBounds().height;
 
+	// Current drawable is text, not sprite.
 	drawable = &text;
 	return;
 }
@@ -59,6 +60,8 @@ void MySprite::SetRotation(int _angle)
 {
 	sprite.setRotation(_angle);
 	
+	// Because sfml rotates from top left, adjust position offset
+	// to imitate rotation from a central pivot.
 	if(_angle == 0)
 	{
 		xOffset = 0;

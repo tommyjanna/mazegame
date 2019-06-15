@@ -2,7 +2,6 @@
 // Class name: 			 Turret
 // Description of class: Fires bullets in a straight line which damage the player.
 // Date Created:		 June 12, 2019
-// Last Modified:		 June 12, 2019
 // Created by:			 Tommy Janna
 
 #ifndef TURRET_H
@@ -23,14 +22,14 @@ public:
     void Destroy() override;
     Drawable* GetDrawable() override;
     
-    static bool freeze;
+    static bool freeze; // Is game frozen due to player death
     
 private:
-	Uint8 direction;
+	Uint8 direction; // Direction the turret is facing.
 	Point mazePos;
 	
-	std::chrono::system_clock::time_point beginningTime;
-    std::chrono::duration<double, milli> elapsedTime;
+	std::chrono::system_clock::time_point beginningTime; // Time of last bullet shot.
+    std::chrono::duration<double, milli> elapsedTime; // Time between last bullet shot and now().
 };
 
 #endif

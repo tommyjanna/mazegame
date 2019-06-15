@@ -1,7 +1,6 @@
 // Riddler.cpp
 // Implementation of the Riddler class
 // Date Created:	June 13, 2019
-// Last Modified:	June 13, 2019
 // Created by:		Tommy Janna
 
 #include "Riddler.h"
@@ -41,8 +40,10 @@ void Riddler::Interact(string _action)
 	{
 	case 0:
 	{
+		// Show in info box.
 		Player::SetInfoText("Mike Wazowski, I am\nJames P. Sullivan.", 15);
 		
+		// Calls back to Interact() when pushed, however currentPanel will be incremented.
 		Button* nextButton = new Button(240, 685, 4, "Next", 20, "Next Button", [this]() { this->Interact("next");
 																							 GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Next Button")); } );
 		currentPanel++;
@@ -97,6 +98,8 @@ void Riddler::Interact(string _action)
 	{
 		Player::SetInfoText("What colour is Bob really\nwearing?", 15);
 		
+		
+		// Player has choice of blue or red. Pass the answer back to Interact(answer)
 		Button* choiceButton = new Button(240, 685, 4, "Blue", 20, "Blue Button", [this]() { this->Interact("blue");
 																							 GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Blue Button"));
 																							 GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Red Button")); } );
@@ -108,7 +111,7 @@ void Riddler::Interact(string _action)
 	}
 	case 7:
 	{
-		if(_action == "blue")
+		if(_action == "blue") // Correct answer.
 		{
 			Player::SetInfoText("Correct!\nReady for the second\nquestion?", 15);
 			
@@ -118,7 +121,7 @@ void Riddler::Interact(string _action)
 			currentPanel++;
 		}
 		
-		else
+		else // Player loses.
 		{
 			Player::SetInfoText("Sorry Mike, that answer is\nincorrect. Prepare to die...", 15);
 			
@@ -149,6 +152,7 @@ void Riddler::Interact(string _action)
 	{
 		Player::SetInfoText("Are both these sentences\ntrue or false?", 15);
 		
+		// Player has three choices. Calls back Interact() with their answer.
 		Button* choiceButton = new Button(230, 665, 4, "T", 25, "True Button", [this]() { this->Interact("true");
 																					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("True Button"));
 																					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("False Button"));
@@ -166,7 +170,7 @@ void Riddler::Interact(string _action)
 	}
 	case 11:
 	{
-		if(_action == "paradox")
+		if(_action == "paradox") // Correct, riddler disappears.
 		{
 			Player::SetInfoText("Correct! Congratulations,\nMike.\nYou may exit the maze.", 15);
 			
@@ -177,7 +181,7 @@ void Riddler::Interact(string _action)
 			Player::interacting = false;
 		}
 		
-		else
+		else // Incorrect, player loses.
 		{
 			Player::SetInfoText("Sorry Mike, that answer is\nincorrect. Prepare to die...", 15);
 			

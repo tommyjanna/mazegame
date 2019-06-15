@@ -1,7 +1,6 @@
 // Text.cpp
 // Implementation of the MyText class
 // Date Created:	May 25, 2019
-// Last Modified:	May 25, 2019
 // Created by:		Tommy Janna
 
 #include "Text.h"

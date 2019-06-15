@@ -3,7 +3,6 @@
 // Description of class: Maze that contains all corresponding gameobjects,
 //						 and functionality for the auto-solver.
 // Date Created:		 May 27, 2019
-// Last Modified:		 May 27, 2019
 // Created by:			 Tommy Janna
 
 #ifndef MAZE_H
@@ -59,9 +58,9 @@ private:
 	// Data pertaining to the autosolver
 	bool autoSolver;
 	void AutoSolverStep();
-	Stack<char> solverMovement;
-	Stack<MyImage*> solverVisual;
-	bool solverVisited[15][15];
+	Stack<char> solverMovement; // Stack containing all previous movements.
+	Stack<MyImage*> solverVisual; // Visual representation of solver movements.
+	bool solverVisited[15][15]; // Memorize locations solver has visited to avoid loops.
 	MyText* attemptedMoves;
 	MyText* totalMoves;
 	int nAttemptedMoves;

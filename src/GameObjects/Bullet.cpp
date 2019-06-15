@@ -1,7 +1,6 @@
 // Bullet.cpp
 // Implementation of the Bullet class
 // Date Created:	June 12, 2019
-// Last Modified:	June 12, 2019
 // Created by:		Tommy Janna
 
 #include "Bullet.h"
@@ -20,16 +19,16 @@ Bullet::Bullet(Point _position, Uint8 _direction) :
 	yPos = mazePos.y * 40;
 
 	UpdatePosition();
-		
-                    
+		   
 	// Mark start time to begin timer.
 	beginningTime = chrono::system_clock::now();
 }
 
 void Bullet::Update()
 {
-	if(!Turret::freeze)
+	if(!Turret::freeze) // When player is hit, turrets and bullets freeze.
 	{
+		// Time since last bullet movement.
 		elapsedTime = chrono::system_clock::now() - beginningTime;
 		
 		if(elapsedTime.count() >= 300) // 300 milliseconds between each movement
@@ -65,10 +64,12 @@ void Bullet::Update()
 		
 		else if(Maze::GetCell(mazePos.x, mazePos.y) == 4) // Hitting player
 		{
+			// Freeze turrets and bullets.
 			Turret::freeze = true;
 			Player::SetInfoText("You have been destroyed by the\nforces of evil, Mike Wazowski.\nBetter luck next time...", 13);
 		}
 		
+		// Update the absolute position.
 		xPos = mazePos.x * 40;
 		yPos = mazePos.y * 40;
 

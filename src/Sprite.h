@@ -2,7 +2,6 @@
 // Class Name:		  MySprite
 // Class Description: Sprite wrapper class for sf::Texture and sf::Text
 // Date Created:	  May 25, 2019
-// Last Modified:	  May 25, 2019
 // Created by:		  Tommy Janna
 
 #ifndef TEXTURE_H

@@ -1,7 +1,6 @@
 // Turret.cpp
 // Implementation of the Turret class
 // Date Created:	June 12, 2019
-// Last Modified:	June 12, 2019
 // Created by:		Tommy Janna
 
 #include "Turret.h"
@@ -31,7 +30,7 @@ Turret::Turret(Point _position, Uint8 _direction) :
 
 void Turret::Update()
 {
-	if(!freeze)
+	if(!freeze) // When player is hit, turrets and bullets freeze.
 	{
 		elapsedTime = chrono::system_clock::now() - beginningTime;
 		if(elapsedTime.count() >= 2000) // 2000 milliseconds between each fire

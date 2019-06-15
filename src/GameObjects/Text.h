@@ -2,7 +2,6 @@
 // Class name: 			 MyText
 // Description of class: It's a text field.
 // Date Created:		 May 25, 2019
-// Last Modified:		 May 25, 2019
 // Created by:			 Tommy Janna
 
 #ifndef TEXT_H

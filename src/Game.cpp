@@ -1,7 +1,6 @@
 // Game.cpp
 // Implementation of the Game class.
 // Date Created:	May 22, 2019
-// Last Modified:	May 22, 2019
 // Created by:		Tommy Janna
 
 #include "Game.h"
@@ -15,10 +14,11 @@ LinkedList* GameObject::objects;
 Game::Game()
 {
 	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Maze Game");
-    window.setKeyRepeatEnabled(false);
+    window.setKeyRepeatEnabled(false); // Ignore multiple key inputs with single key hold.
 
 	GameObject::objects = new LinkedList();
 
+	// Open menu.
 	SceneManager::ChangeScene(SceneManager::MENU);
 }
 
@@ -50,7 +50,7 @@ void Game::Input()
 			window.close();
 		}
 
-		else if(event.type == Event::MouseButtonPressed)
+		else if(event.type == Event::MouseButtonPressed) // Mouse button down
 		{
 			mouseEventOccur = true;
 
@@ -61,7 +61,7 @@ void Game::Input()
 			}
 		}
 
-		else if(event.type == Event::MouseButtonReleased)
+		else if(event.type == Event::MouseButtonReleased) // Mouse button up
 		{
 			mouseEventOccur = true;
 
@@ -72,7 +72,7 @@ void Game::Input()
 			}
 		}
 
-		else if(event.type == Event::KeyPressed)
+		else if(event.type == Event::KeyPressed) // Key down
         {
             if(event.key.code == Keyboard::Up)
             {
@@ -134,6 +134,7 @@ void Game::Update()
 
 void Game::Draw()
 {
+	// Clear screen with beige background draw color.
 	window.clear(Color(243, 240, 189));
 
 	for(int i = 1; i < 6; i++)
@@ -149,5 +150,6 @@ void Game::Draw()
 		}
 	}
 
+	// Reveal back buffer.
 	window.display();
 }

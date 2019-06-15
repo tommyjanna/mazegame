@@ -1,11 +1,11 @@
 // Maze.cpp
 // Implementation of the Maze class
 // Date Created:	May 27, 2019
-// Last Modified:	May 27, 2019
 // Created by:		Tommy Janna
 
 #include "Maze.h"
 
+// Declare static members.
 Uint8 Maze::mazeLayout[15][15];
 Riddler* Maze::riddler;
 
@@ -36,6 +36,7 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 							   { 1, 4, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1 },
 							   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 
+	// Place images at corresponding maze coordinates.
 	for(int i = 0; i < 15; i++)
 	{
 		for(int j = 0; j < 15; j++)
@@ -60,6 +61,7 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 		}
 	}
 
+	// Points of interest.
 	start.x = 1;
 	start.y = 13;
 
@@ -117,7 +119,7 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 
 void Maze::Update()
 {
-	if(autoSolver)
+	if(autoSolver) // While maze has yet to have been solved.
 	{
 		AutoSolverStep();
 	}
@@ -127,16 +129,19 @@ void Maze::Update()
 
 void Maze::Destroy()
 {
+	// Delete all 127 walls.
 	for(int i = 0; i < 127; i++)
 	{
 		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Wall"));
 	}
 
+	// Delete visual representation of autosolver. (At it's max = 50 objects)
 	for(int i = 0; i < 50; i++)
 	{
 		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Visited"));
 	}
 
+	// Free memory for all maze objects.
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Info Box"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Inventory Box"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Start Icon"));
@@ -191,9 +196,8 @@ void Maze::AutoSolverStep()
 	// First, try to move in any direction, not obstructed by a wall,
 	// and not previously visited.
 	if(mazeLayout[currentPos.y - 1][currentPos.x] % 2 == 0
-		&& solverVisited[currentPos.y - 1][currentPos.x] == false)
+		&& solverVisited[currentPos.y - 1][currentPos.x] == false) // Up
 	{
-		// Move up
 		solverMovement.Push('u');
 		solverVisited[currentPos.y - 1][currentPos.x] = true;
 
@@ -204,9 +208,8 @@ void Maze::AutoSolverStep()
 	}
 
 	else if(mazeLayout[currentPos.y][currentPos.x + 1] % 2 == 0
-			&& solverVisited[currentPos.y][currentPos.x + 1] == false)
+			&& solverVisited[currentPos.y][currentPos.x + 1] == false) // Right
 	{
-		// Move right
 		solverMovement.Push('r');
 		solverVisited[currentPos.y][currentPos.x + 1] = true;
 
@@ -217,9 +220,8 @@ void Maze::AutoSolverStep()
 	}
 
 	else if(mazeLayout[currentPos.y][currentPos.x - 1] % 2 == 0
-			&& solverVisited[currentPos.y][currentPos.x - 1] == false)
+			&& solverVisited[currentPos.y][currentPos.x - 1] == false) // Left
 	{
-		// Move left
 		solverMovement.Push('l');
 		solverVisited[currentPos.y][currentPos.x - 1] = true;
 
@@ -230,9 +232,8 @@ void Maze::AutoSolverStep()
 	}
 
 	else if(mazeLayout[currentPos.y + 1][currentPos.x] % 2 == 0
-			&& solverVisited[currentPos.y + 1][currentPos.x] == false)
+			&& solverVisited[currentPos.y + 1][currentPos.x] == false) // Down
 	{
-		// Move down
 		solverMovement.Push('d');
 		solverVisited[currentPos.y + 1][currentPos.x] = true;
 
@@ -242,10 +243,10 @@ void Maze::AutoSolverStep()
 		attemptedMoves->UpdateText("Attempted moves: " + std::to_string(++nAttemptedMoves), 15);
 	}
 
-	else
+	else // No possible moves exist that isn't a wall, or a cell already visited.
 	{
 		// Backtrack
-		char lastMove = solverMovement.Pop();
+		char lastMove = solverMovement.Pop(); // Undo last movement to get player "unstuck".
 
 		if(lastMove == 'u')
 		{
@@ -272,21 +273,24 @@ void Maze::AutoSolverStep()
 		}
 	}
 
-	if(mazeLayout[currentPos.y][currentPos.x] == 2)
+	if(mazeLayout[currentPos.y][currentPos.x] == 2) // Key
 	{
+		// Door becomes visible, change it's square from an odd number to an even number (0)
+		// so the solver will attempt to move there if it's adjacent.
 		mazeLayout[doorPos.y][doorPos.x] = 0;
 		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
 
+		// Add icon to inventory section.
 		MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
 	}
 
-	if(currentPos == doorPos)
+	if(currentPos == doorPos) // Remove door sprite and key from inventory, if standing on door.
 	{
 		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
 		GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
 	}
 
-	if(currentPos == end)
+	if(currentPos == end) // SOLVED!
 	{
 		autoSolver = false;
 	}

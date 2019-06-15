@@ -1,7 +1,6 @@
 // Button.cpp
 // Implementation of the Button class
 // Date Created:	May 25, 2019
-// Last Modified:	May 25, 2019
 // Created by:		Tommy Janna
 
 #include "Button.h"
@@ -91,4 +90,5 @@ Drawable* Button::GetDrawable()
 
 void Button::Destroy()
 {
+	return;
 }

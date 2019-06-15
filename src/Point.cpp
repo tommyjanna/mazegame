@@ -1,7 +1,6 @@
 // Point.cpp
 // Implementation of the Point class
 // Date Created:	June 1, 2019
-// Last Modified:	June 1, 2019
 // Created by:		Tommy Janna
 
 #include "Point.h"

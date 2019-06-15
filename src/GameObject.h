@@ -4,7 +4,6 @@
 //                       objects in the game such as position, texture,
 //                       and an abstract update function.
 // Date Created:		 May 23, 2019
-// Last Modified:		 May 23, 2019
 // Created by:			 Tommy Janna
 
 #ifndef GAMEOBJECT_H
@@ -33,14 +32,13 @@ public:
 	string GetLabel();
 
 protected:
-	int xPos, yPos;
+	int xPos, yPos; // Pixels relative to top left corner.
 
 	MySprite sprite;
 
 private:
-	Uint8 layer;
-
-	string label;
+	Uint8 layer; // Order in which objects are drawn.
+	string label; // For locating gameobjects without specific reference.
 };
 
 #endif

@@ -3,7 +3,6 @@
 // Description of class: User controlled being, who's goal is to reach
 //						 the end of the maze without being killed.
 // Date Created:		 June 3, 2019
-// Last Modified:		 June 3, 2019
 // Created by:			 Tommy Janna
 
 #ifndef PLAYER_H
@@ -29,7 +28,7 @@ private:
 	Point mazePos;
 	bool hasKey;
 	
-	static MyText* infoText;
+	static MyText* infoText; // Shows user information in info box.
 };
 
 #endif

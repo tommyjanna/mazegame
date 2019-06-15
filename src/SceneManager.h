@@ -3,7 +3,6 @@
 //                game scenes. It will load all necessary GameObjects
 //                required in each scene.                   
 // Date Created:  May 25, 2019
-// Last Modified: May 25, 2019
 // Created by:	  Tommy Janna
 
 #ifndef SCENEMANAGER_H

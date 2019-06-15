@@ -1,7 +1,6 @@
 // Image.cpp
 // Implementation of the Image class
 // Date Created:	May 27, 2019
-// Last Modified:	May 27, 2019
 // Created by:		Tommy Janna
 
 #include "Image.h"

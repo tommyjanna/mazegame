@@ -1,7 +1,6 @@
 // Stack.tpp
 // Template implementation of the Stack class
 // Date Created:	June 1, 2019
-// Last Modified:	June 1, 2019
 // Created by:		Tommy Janna
 
 template <class T>
@@ -27,6 +26,8 @@ Stack<T>::Stack()
 template <class T>
 void Stack<T>::Push(T _value)
 {
+	// Create new node and set top to new node.
+	// Pass the old top to new node for it's "previous" node.
 	Node* node = new Node(_value, top);
 	top = node;
 	size++;
@@ -39,6 +40,7 @@ inline char Stack<char>::Pop()
 {
 	if(top != nullptr)
 	{
+		// Set top to current tops previous.
 		char content = top->GetContent();
 		top = top->last;
 		size--;
@@ -53,6 +55,7 @@ inline MyImage* Stack<MyImage*>::Pop()
 {
 	if(top != nullptr)
 	{
+		// Set top to current tops previous.
 		MyImage* content = top->GetContent();
 		top = top->last;
 		size--;

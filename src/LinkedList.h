@@ -2,7 +2,6 @@
 // Class Name:		  LinkedList
 // Class Description: It's a linked list. What else do you want...
 // Date Created:	  April 2, 2019
-// Last Modified:	  May 23, 2019
 // Created by:		  Tommy Janna
 
 #ifndef LINKEDLIST_H

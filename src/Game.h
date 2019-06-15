@@ -5,7 +5,6 @@
 //						create a new window, handle the game loop,
 //						handle input, load graphics, and draw to the screen.
 // Date Created:		May 22, 2019
-// Last Modified:		May 22, 2019
 // Created by:			Tommy Janna
 
 #ifndef GAME_H
@@ -29,9 +28,9 @@ public:
 	void Update();
 	void Draw();
 
-	static Vector2i mousePos;
-	static bool mouseState[2];
-	static bool keyboardState[4];
+	static Vector2i mousePos; // Coordinates of mouse position relative to window.
+	static bool mouseState[2]; // Holds pressed or released for left and right mouse buttons.
+	static bool keyboardState[4]; // Holds pressed or released for up, down, left, right.
 
 private:
 	RenderWindow window;
