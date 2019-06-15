@@ -24,8 +24,8 @@ void Button::Update()
     // accidental double clicking of separate buttons on a trackpad.
     if(timerRunning)
     {
-        _elapsedTime = chrono::system_clock::now() - _beginningTime;
-        if(_elapsedTime.count() < 50) // 50 milliseconds between each push
+        elapsedTime = chrono::system_clock::now() - beginningTime;
+        if(elapsedTime.count() < 50) // 50 milliseconds between each push
         {
             timeCheck = false;
         }
@@ -47,7 +47,7 @@ void Button::Update()
 				if(Game::mouseState[1]) // Mouse up.
 				{
                     // Start timer between button presses.
-                    _beginningTime = chrono::system_clock::now();
+                    beginningTime = chrono::system_clock::now();
                     timerRunning = true;
 
                     down = false;

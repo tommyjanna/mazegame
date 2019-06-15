@@ -5,7 +5,6 @@
 // Created by:		Tommy Janna
 
 #include "Being.h"
-#include <iostream>
 
 Being::Being(Point _position, Uint8 _layer, int _hp, int _ap, string _label) :
                 GameObject(_position.x * 40, _position.y * 40, _layer, _label)

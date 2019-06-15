@@ -14,6 +14,7 @@
 #include "GameObjects/Image.h"
 #include "GameObjects/Text.h"
 #include "GameObjects/Player.h"
+#include "GameObjects/Turret.h"
 #include "GameObjects/Button.h"
 #include "Stack.h"
 #include "Point.h"
@@ -43,6 +44,8 @@ private:
 	Point end;
 	Point currentPos;
 	Point doorPos;
+	Point turretPos1;
+	Point turretPos2;
 	
 	MyText* startText;
 	MyText* endText;

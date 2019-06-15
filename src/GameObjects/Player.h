@@ -10,6 +10,7 @@
 #define PLAYER_H
 
 #include "Being.h"
+#include "Turret.h"
 #include "../Game.h"
 
 class Player : public Being
@@ -21,10 +22,12 @@ public:
     void Destroy() override;
     Drawable* GetDrawable() override;
 
+    static void SetInfoText(string _text, Uint8 _fontSize);
+
 private:
 	bool hasKey;
 	
-	MyText* infoText;
+	static MyText* infoText;
 };
 
 #endif

@@ -23,6 +23,7 @@ public:
 
     void SetColor(Color _colour);
     void SetPosition(int _x, int _y);
+    void SetRotation(int _angle);
 
     int GetWidth();
     int GetHeight();
@@ -38,6 +39,9 @@ private:
 
     int width;
     int height;
+    
+    int xOffset = 0;
+    int yOffset = 0;
 
     Drawable* drawable;
 };

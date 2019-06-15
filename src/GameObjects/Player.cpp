@@ -5,7 +5,9 @@
 // Created by:		Tommy Janna
 
 #include "Player.h"
-#include <iostream>
+
+// Declare static members.
+MyText* Player::infoText;
 
 Player::Player(Point _position, Uint8 _layer, int _hp, int _ap, string _label) :Being(_position, _layer, _hp, _ap, _label)
 {
@@ -18,136 +20,167 @@ Player::Player(Point _position, Uint8 _layer, int _hp, int _ap, string _label) :
 
 void Player::Update()
 {
-	if(!(mazePos.x == 13 && mazePos.y == 13))
+	if(!Turret::freeze)
 	{
-		if(Game::keyboardState[0]) // Up
+		if(!(mazePos.x == 13 && mazePos.y == 13))
 		{
-			if(Maze::GetCell(mazePos.x, mazePos.y - 1) % 2 == 0) // Even numbers are movable
+			if(Game::keyboardState[0]) // Up
 			{
-				mazePos.y--;
-
-				if(Maze::GetCell(mazePos.x, mazePos.y) == 2 && !hasKey) // On key
+				if(Maze::GetCell(mazePos.x, mazePos.y - 1) % 2 == 0) // Even numbers are movable
 				{
-					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
+					Maze::SetCell(mazePos.x, mazePos.y, 0);
+					mazePos.y--;
 
-					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
-					hasKey = true;
+					if(Maze::GetCell(mazePos.x, mazePos.y) == 2 && !hasKey) // On key
+					{
+						GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
+
+						MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
+						hasKey = true;
+						
+						Maze::SetCell(mazePos.x, mazePos.y, 0);
+					}
+					
+					else
+					{
+						Maze::SetCell(mazePos.x, mazePos.y, 4);
+					}
+				}
+				
+				else if(Maze::GetCell(mazePos.x, mazePos.y - 1) == 3 && hasKey)
+				{
+					Maze::SetCell(mazePos.x, mazePos.y, 0);
+					Maze::SetCell(mazePos.x, --mazePos.y, 4);
+					
+					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
+					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
+					hasKey = false;
 					
 					Maze::SetCell(mazePos.x, mazePos.y, 0);
 				}
-			}
-			
-			else if(Maze::GetCell(mazePos.x, mazePos.y - 1) == 3 && hasKey)
-			{
-				mazePos.x++;
-				
-				GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
-				GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
-				hasKey = false;
-				
-				Maze::SetCell(mazePos.x, mazePos.y, 0);
+
+				Game::keyboardState[0] = false;
 			}
 
-			Game::keyboardState[0] = false;
-		}
-
-		else if(Game::keyboardState[1]) // Down
-		{
-			if(Maze::GetCell(mazePos.x, mazePos.y + 1) % 2 == 0)
+			else if(Game::keyboardState[1]) // Down
 			{
-				mazePos.y++;
-			   
-				if(Maze::GetCell(mazePos.x, mazePos.y) == 2 && !hasKey)
+				if(Maze::GetCell(mazePos.x, mazePos.y + 1) % 2 == 0)
 				{
-					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
-
-					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
-					hasKey = true;
-
 					Maze::SetCell(mazePos.x, mazePos.y, 0);
+					mazePos.y++;
+				   
+					if(Maze::GetCell(mazePos.x, mazePos.y) == 2 && !hasKey)
+					{
+						GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
+
+						MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
+						hasKey = true;
+
+						Maze::SetCell(mazePos.x, mazePos.y, 0);
+					}
+					
+					else
+					{
+						Maze::SetCell(mazePos.x, mazePos.y, 4);
+					}
 				}
-			}
-			
-			else if(Maze::GetCell(mazePos.x, mazePos.y + 1) == 3 && hasKey)
-			{
-				mazePos.x++;
 				
-				GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
-				GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
-				hasKey = false;
-				
-				Maze::SetCell(mazePos.x, mazePos.y, 0);
-			}
-
-			Game::keyboardState[1] = false;
-		}
-
-		else if(Game::keyboardState[2]) // Left
-		{
-			if(Maze::GetCell(mazePos.x - 1, mazePos.y) % 2 == 0)
-			{
-				mazePos.x--;
-				
-				if(Maze::GetCell(mazePos.x, mazePos.y) == 2 && !hasKey)
+				else if(Maze::GetCell(mazePos.x, mazePos.y + 1) == 3 && hasKey)
 				{
-					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
-
-					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
-					hasKey = true;
-
 					Maze::SetCell(mazePos.x, mazePos.y, 0);
-				}
-			}
-			
-			else if(Maze::GetCell(mazePos.x - 1, mazePos.y) == 3 && hasKey)
-			{
-				mazePos.x++;
-				
-				GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
-				GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
-				hasKey = false;
-				
-				Maze::SetCell(mazePos.x, mazePos.y, 0);
-			}
-
-			Game::keyboardState[2] = false;
-		}
-
-		else if(Game::keyboardState[3]) // Right
-		{
-			if(Maze::GetCell(mazePos.x + 1, mazePos.y) % 2 == 0)
-			{
-				mazePos.x++;
-				
-				if(Maze::GetCell(mazePos.x, mazePos.y) == 2 && !hasKey)
-				{
-					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
-
-					MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
-					hasKey = true;
+					Maze::SetCell(mazePos.x, ++mazePos.y, 4);
+					
+					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
+					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
+					hasKey = false;
 					
 					Maze::SetCell(mazePos.x, mazePos.y, 0);
 				}
-			}
-			
-			else if(Maze::GetCell(mazePos.x + 1, mazePos.y) == 3 && hasKey)
-			{
-				mazePos.x++;
-				
-				GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
-				GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
-				hasKey = false;
-				
-				Maze::SetCell(mazePos.x, mazePos.y, 0);
+
+				Game::keyboardState[1] = false;
 			}
 
-			Game::keyboardState[3] = false;
+			else if(Game::keyboardState[2]) // Left
+			{
+				if(Maze::GetCell(mazePos.x - 1, mazePos.y) % 2 == 0)
+				{
+					Maze::SetCell(mazePos.x, mazePos.y, 0);
+					mazePos.x--;
+					
+					if(Maze::GetCell(mazePos.x, mazePos.y) == 2 && !hasKey)
+					{
+						GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
+
+						MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
+						hasKey = true;
+
+						Maze::SetCell(mazePos.x, mazePos.y, 0);
+					}
+					
+					else
+					{
+						Maze::SetCell(mazePos.x, mazePos.y, 4);
+					}
+				}
+				
+				else if(Maze::GetCell(mazePos.x - 1, mazePos.y) == 3 && hasKey)
+				{
+					Maze::SetCell(mazePos.x, mazePos.y, 0);
+					Maze::SetCell(--mazePos.x, mazePos.y, 4);
+					
+					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
+					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
+					hasKey = false;
+					
+					Maze::SetCell(mazePos.x, mazePos.y, 0);
+				}
+
+				Game::keyboardState[2] = false;
+			}
+
+			else if(Game::keyboardState[3]) // Right
+			{
+				if(Maze::GetCell(mazePos.x + 1, mazePos.y) % 2 == 0)
+				{
+					Maze::SetCell(mazePos.x, mazePos.y, 0);
+					mazePos.x++;
+					
+					if(Maze::GetCell(mazePos.x, mazePos.y) == 2 && !hasKey)
+					{
+						GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key"));
+
+						MyImage* keyCollected = new MyImage(20, 620, 2, std::string(PATH_PREFIX) + "assets/sprites/key.png", 3.5f, "Key Collected");
+						hasKey = true;
+						
+						Maze::SetCell(mazePos.x, mazePos.y, 0);
+					}
+					
+					else
+					{
+						Maze::SetCell(mazePos.x, mazePos.y, 4);
+					}
+				}
+				
+				else if(Maze::GetCell(mazePos.x + 1, mazePos.y) == 3 && hasKey)
+				{
+					Maze::SetCell(mazePos.x, mazePos.y, 0);
+					Maze::SetCell(++mazePos.x, mazePos.y, 5);
+					
+					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Door"));
+					GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
+					hasKey = false;
+					
+					Maze::SetCell(mazePos.x, mazePos.y, 0);
+				}
+
+				Game::keyboardState[3] = false;
+			}
 		}
-	}
-	
-	else
-	{
-		infoText->UpdateText("You win!\nCongratulations Mike!", 15);
+		
+		else
+		{
+			infoText->UpdateText("You win!\nCongratulations Mike!", 15);
+		}
 	}
 
     Being::Update();
@@ -163,6 +196,11 @@ void Player::Destroy()
 Drawable* Player::GetDrawable()
 {
 	return sprite.GetDrawable();
+}
+
+void Player::SetInfoText(string _text, Uint8 _fontSize)
+{
+	infoText->UpdateText(_text, _fontSize);
 }
 
 

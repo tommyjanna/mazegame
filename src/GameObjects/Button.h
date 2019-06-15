@@ -25,8 +25,8 @@ public:
 
 private:
 
-    std::chrono::system_clock::time_point _beginningTime;
-    std::chrono::duration<double, milli> _elapsedTime;
+    std::chrono::system_clock::time_point beginningTime;
+    std::chrono::duration<double, milli> elapsedTime;
     bool timerRunning;
 
     bool down;

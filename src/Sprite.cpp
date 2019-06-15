@@ -49,9 +49,40 @@ void MySprite::SetColor(Color _colour)
 
 void MySprite::SetPosition(int _x, int _y)
 {
-	sprite.setPosition(_x, _y);
+	sprite.setPosition(_x + xOffset, _y + yOffset);
 	text.setPosition(_x, _y);
 
+	return;
+}
+
+void MySprite::SetRotation(int _angle)
+{
+	sprite.setRotation(_angle);
+	
+	if(_angle == 0)
+	{
+		xOffset = 0;
+		yOffset = 0;
+	}
+	
+	else if(_angle <= 90)
+	{
+		xOffset = 40;
+		yOffset = 0;
+	}
+	
+	else if(_angle <= 180)
+	{
+		xOffset = 40;
+		yOffset = 40;
+	}
+	
+	else if(_angle <= 270)
+	{
+		xOffset = 0;
+		yOffset	= 40;
+	}
+	
 	return;
 }
 

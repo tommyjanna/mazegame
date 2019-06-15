@@ -14,6 +14,7 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 	// 1 - Wall
 	// 2 - Key
 	// 3 - Door
+	// 4 - Player
 
 	Uint8 tempMaze[15][15] = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 							   { 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
@@ -28,7 +29,7 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 							   { 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1 },
 							   { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
 							   { 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1 },
-							   { 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1 },
+							   { 1, 4, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1 },
 							   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 
 	for(int i = 0; i < 15; i++)
@@ -63,6 +64,12 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 
 	doorPos.x = 8;
 	doorPos.y = 6;
+	
+	turretPos1.x = 1;
+	turretPos1.y = 9;
+	
+	turretPos2.x = 11;
+	turretPos2.y = 3;
 
 	currentPos = start;
 
@@ -83,6 +90,11 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 	else
 	{
 		Player* player = new Player(start, 4, 100, 100, "Player");
+		
+		// Turrets should be unfrozen at beginning of game.
+		Turret::freeze = false;
+		Turret* turret = new Turret(turretPos1, 0);
+		turret = new Turret(turretPos2, 2);
 	}
 
 	startText = new MyText(40 * start.x + 3, 40 * start.y - 3, 3, "S", 40, "Start Icon");
@@ -128,6 +140,11 @@ void Maze::Destroy()
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Total Moves"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Player"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Turret"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Turret"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Bullet"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Bullet"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Bullet"));
 
 
 	return;
