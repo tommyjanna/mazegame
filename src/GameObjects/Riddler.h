@@ -23,10 +23,12 @@ public:
     void Destroy() override;
     Drawable* GetDrawable() override;
     
-    bool interacting;
+    void Interact(string _action);
 
 private:
 	Point mazePos;
+	
+	int currentPanel;
 };
 
 #endif

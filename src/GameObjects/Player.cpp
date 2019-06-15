@@ -8,6 +8,7 @@
 
 // Declare static members.
 MyText* Player::infoText;
+bool Player::interacting;
 
 Player::Player(Point _position, Uint8 _layer, string _label) : GameObject(_position.x * 40, _position.y * 40, _layer, _label)
 {
@@ -23,7 +24,7 @@ Player::Player(Point _position, Uint8 _layer, string _label) : GameObject(_posit
 
 void Player::Update()
 {
-	if(!Turret::freeze || interacting)
+	if(!Turret::freeze && !interacting)
 	{
 		if(!(mazePos.x == 13 && mazePos.y == 13))
 		{
@@ -37,7 +38,7 @@ void Player::Update()
 				{
 					if(movingCell == 6) // Riddler
 					{
-						Maze::GetRiddler()->interacting = true;
+						Maze::GetRiddler()->Interact("start");
 						interacting = true;
 					}
 					
@@ -88,7 +89,7 @@ void Player::Update()
 				{
 					if(movingCell == 6)
 					{
-						Maze::GetRiddler()->interacting = true;
+						Maze::GetRiddler()->Interact("start");
 						interacting = true;
 					}
 					
@@ -139,7 +140,7 @@ void Player::Update()
 				{
 					if(movingCell == 6)
 					{
-						Maze::GetRiddler()->interacting = true;
+						Maze::GetRiddler()->Interact("start");
 						interacting = true;
 					}
 					
@@ -190,7 +191,7 @@ void Player::Update()
 				{
 					if(movingCell == 6)
 					{
-						Maze::GetRiddler()->interacting = true;
+						Maze::GetRiddler()->Interact("start");
 						interacting = true;
 					}
 					

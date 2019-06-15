@@ -23,11 +23,11 @@ public:
     Drawable* GetDrawable() override;
 
     static void SetInfoText(string _text, Uint8 _fontSize);
+	static bool interacting;
 
 private:
 	Point mazePos;
 	bool hasKey;
-	bool interacting;
 	
 	static MyText* infoText;
 };

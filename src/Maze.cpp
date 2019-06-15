@@ -113,7 +113,6 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 	MyImage* inventoryBox = new MyImage(0, 600, 4, std::string(PATH_PREFIX) + "assets/sprites/inventorybox.png", "Inventory Box");
 
 	Button* returnButton = new Button(460, 685, 4, "Return", 20, "Return Button", []() { SceneManager::ChangeScene(SceneManager::MENU); } );
-
 }
 
 void Maze::Update()
@@ -155,6 +154,12 @@ void Maze::Destroy()
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Bullet"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Bullet"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Bullet"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Red Button"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Blue Button"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Next Button"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("True Button"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("False Button"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Paradox Button"));
 
 
 	return;
