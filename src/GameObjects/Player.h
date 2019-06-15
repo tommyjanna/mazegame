@@ -9,14 +9,14 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "Being.h"
 #include "Turret.h"
 #include "../Game.h"
+#include "../GameObject.h"
 
-class Player : public Being
+class Player : public GameObject
 {
 public:
-    Player(Point _position, Uint8 _layer, int _hp, int _ap, string _label);
+    Player(Point _position, Uint8 _layer, string _label);
 
     void Update() override;
     void Destroy() override;
@@ -25,7 +25,9 @@ public:
     static void SetInfoText(string _text, Uint8 _fontSize);
 
 private:
+	Point mazePos;
 	bool hasKey;
+	bool interacting;
 	
 	static MyText* infoText;
 };

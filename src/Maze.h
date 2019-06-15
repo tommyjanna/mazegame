@@ -14,6 +14,7 @@
 #include "GameObjects/Image.h"
 #include "GameObjects/Text.h"
 #include "GameObjects/Player.h"
+#include "GameObjects/Riddler.h"
 #include "GameObjects/Turret.h"
 #include "GameObjects/Button.h"
 #include "Stack.h"
@@ -24,6 +25,8 @@
 #else
 #define PATH_PREFIX ""
 #endif
+
+class Riddler;
 
 class Maze : public GameObject
 {
@@ -36,14 +39,17 @@ public:
 
     static Uint8 GetCell(Uint8 _x, Uint8 _y);
     static void SetCell(Uint8 _x, Uint8 _y, Uint8 _type);
+    static Riddler* GetRiddler();
 
 private:
 	static Uint8 mazeLayout[15][15];
+	static Riddler* riddler;
 
 	Point start;
 	Point end;
 	Point currentPos;
 	Point doorPos;
+	Point riddlerPos;
 	Point turretPos1;
 	Point turretPos2;
 	

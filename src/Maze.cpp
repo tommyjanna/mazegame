@@ -7,14 +7,18 @@
 #include "Maze.h"
 
 Uint8 Maze::mazeLayout[15][15];
+Riddler* Maze::riddler;
 
 Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 {
+	/// Even numbers are passable, odd are not.
 	// 0 - Space
 	// 1 - Wall
 	// 2 - Key
 	// 3 - Door
 	// 4 - Player
+	// 5 -
+	// 6 - Riddler
 
 	Uint8 tempMaze[15][15] = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 							   { 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
@@ -25,7 +29,7 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 							   { 1, 0, 1, 0, 1, 1, 1, 0, 3, 0, 1, 1, 1, 0, 1 },
 							   { 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1 },
 							   { 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
-							   { 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1 },
+							   { 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 6, 0, 1, 0, 1 },
 							   { 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1 },
 							   { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
 							   { 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1 },
@@ -65,6 +69,9 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 	doorPos.x = 8;
 	doorPos.y = 6;
 	
+	riddlerPos.x = 10;
+	riddlerPos.y = 9;
+	
 	turretPos1.x = 1;
 	turretPos1.y = 9;
 	
@@ -89,7 +96,9 @@ Maze::Maze(bool _autoSolver) : GameObject(0, 0, 0, "Maze")
 
 	else
 	{
-		Player* player = new Player(start, 4, 100, 100, "Player");
+		Player* player = new Player(start, 4, "Player");
+		
+		riddler = new Riddler(riddlerPos, 3, "Riddler");
 		
 		// Turrets should be unfrozen at beginning of game.
 		Turret::freeze = false;
@@ -139,6 +148,7 @@ void Maze::Destroy()
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Attempted Moves"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Total Moves"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Player"));
+	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Riddler"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Key Collected"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Turret"));
 	GameObject::objects->Delete(GameObject::objects->GetLinkWithLabel("Turret"));
@@ -164,6 +174,11 @@ void Maze::SetCell(Uint8 _x, Uint8 _y, Uint8 _type)
 {
     Maze::mazeLayout[_y][_x] = _type;
     return;
+}
+
+Riddler* Maze::GetRiddler()
+{
+	return Maze::riddler;
 }
 
 void Maze::AutoSolverStep()
